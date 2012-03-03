@@ -2,17 +2,7 @@
 
 #include "tree.h"
 #include "chromosome.h"
-#include "simulation.h"
 #include "equation.h"
-
-chromosome *alloc_chromosome(gk_simulation *simulation) { 
-
-  chromosome *c = (chromosome *) malloc(sizeof(chromosome)); 
-  c->pool = &simulation->pool;
-  c->node = NULL;
-
-  return c;
-}
 
 void free_chromosome(chromosome *c) {
   if(c->node) free_tree(c->node);

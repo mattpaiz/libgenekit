@@ -116,8 +116,25 @@ void gk_set_max_depth(gk_simulation *sim, int max_depth) {
   sim->max_depth = max_depth;
 }
 
+void default_logger(gk_population *population, int generation) {
+  int i;
+
+  printf("Generation %d: ",  generation);
+
+  for(i = 0; i < population->size; i++) {
+    char *equation = gk_to_string(population->individuals[i]);
+    printf("%s ", equation);
+    free(equation);
+  }
+  printf("\n");
+}
+
 gk_simulation *gk_create_simulation() {
-  return (gk_simulation *) malloc(sizeof(gk_simulation)); 
+  gk_simulation *sim = (gk_simulation *) malloc(sizeof(gk_simulation)); 
+
+  sim->log_generation = &default_logger;
+
+  return sim;
 }
 
 void gk_set_function_pool(gk_simulation *sim, function *functions, int n) {
@@ -125,4 +142,13 @@ void gk_set_function_pool(gk_simulation *sim, function *functions, int n) {
   sim->pool.function_count = n;
 }
 
+
+chromosome *gk_alloc_chromosome(gk_simulation *simulation) { 
+
+  chromosome *c = (chromosome *) malloc(sizeof(chromosome)); 
+  c->pool = &simulation->pool;
+  c->node = NULL;
+
+  return c;
+}
 
