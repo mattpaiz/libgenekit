@@ -1,7 +1,9 @@
 #include <stdlib.h>
 
 #include "tree.h"
+#include "rand.h"
 
+tree *get_random_node(function_pool *pool, int args, int level, int maxlevel);
 
 tree *alloc_tree(function *function) {
   int c;
@@ -14,9 +16,44 @@ tree *alloc_tree(function *function) {
     output->args[c] = NULL;
 
   output->primitive = 0;
-  output->position = 0;
 
   return output;
+}
+
+int count_leaf_functions(function_pool *pool) {
+  int c, sum = 0;
+
+  for(c = 0; c < pool->function_count; c++)
+    if(pool->functions[c].arg_count == 0)
+      sum++;
+
+  return sum;
+}
+
+void append_random_node(tree *node, function_pool *pool, int level, int maxlevel) {
+  int c;
+
+  for(c = 0; c < node->f->arg_count; c++) {
+    if(!node->args[c]) {
+      node->args[c] = get_random_node(pool, 0, level + 1, maxlevel);
+      append_random_node(node->args[c], pool, level + 1, maxlevel);
+    }
+  }
+}
+
+tree *get_random_node(function_pool *pool, int args, int level, int maxlevel) {
+  tree *node;
+
+  if(level < maxlevel)
+    return alloc_tree(&pool->functions[RAND(pool->function_count)]);
+  else {
+
+    int count = count_leaf_functions(pool);
+
+    node = alloc_tree(get_leaf_function(RAND(count), pool));
+    node->primitive = RAND(10000);
+    return node;
+  }
 }
 
 tree *copy_tree(tree *node) {
@@ -29,7 +66,6 @@ tree *copy_tree(tree *node) {
   }
 
   copy->primitive = node->primitive;
-  copy->position = node->position;
 
   return copy;
 }
@@ -187,9 +223,6 @@ float evaluate(tree *value) {
     result = (value->f->ptr)(arguments);
   else
     result = (value->f->ptr)(&value->primitive);
-
-  if(value->f->arg_count)
-    value->args[c - 1]->result = arguments[c - 1];
 
   free(arguments);
 

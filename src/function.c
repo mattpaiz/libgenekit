@@ -2,6 +2,19 @@
 #include <stdlib.h>
 #include "function.h"
 
+function *get_leaf_function(int index, function_pool *pool) {
+
+  int c;
+  for(c = 0; c < pool->function_count; c++) {
+    if(pool->functions[c].arg_count == 0) {
+      if(index-- == 0)
+        return &pool->functions[c];
+    }
+  }
+
+  return NULL;
+}
+
 function *lookup_label(char *label, function_pool *pool) {
 
   int c;

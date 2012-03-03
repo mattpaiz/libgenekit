@@ -6,12 +6,14 @@
 typedef struct {
   tree *node;
   function_pool *pool;
+  float score;
 } chromosome;
 
 typedef struct gk_population {
   chromosome **individuals;
   int size;
   float max_fitness;
+  float total_fitness;
 } gk_population;
 
 void gk_set_equation(chromosome *, char *);

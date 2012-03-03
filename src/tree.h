@@ -6,15 +6,10 @@
 struct _tree;
 typedef struct _tree tree;
 
-/*TODO: Remove Score*/
 struct _tree {
   tree **args;
   function *f;
   float primitive;
-  float score;
-  int position;
-  float result;
-  float sum;
 };
 
 tree *alloc_tree(function *function);

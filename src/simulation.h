@@ -2,16 +2,8 @@
 #define __SIMULATION_H__
 
 #include "tree.h"
-//#include "settings.h"
 #include "function.h"
 #include "chromosome.h"
-//#include "record.h"
-
-#if HUMAN_READABLE 
-#define DISPLAY_EQUATION convert_to_hr_equation
-#else
-#define DISPLAY_EQUATION convert_to_equation
-#endif
 
 typedef float(*fitness_ptr)(tree *); 
 

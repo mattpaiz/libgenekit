@@ -20,7 +20,7 @@ $(LIBDIR)/libgenekit.a: $(OBJ)
 install: $(LIBDIR)/libgenekit.a
 	cp $(LIBDIR)/libgenekit.a /usr/local/lib/		
 	cp genekit.h /usr/local/include/		
-	cp kernel.h simulation.h function.h tree.h equation.h chromosome.h mutate.h /usr/local/include/genekit/
+	cp rand.h kernel.h simulation.h function.h tree.h equation.h chromosome.h mutate.h /usr/local/include/genekit/
 
 clean: 
 	rm $(BINDIR)/*.o $(LIBDIR)/*.a

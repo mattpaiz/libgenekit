@@ -18,5 +18,6 @@ typedef struct {
 } function_pool;
 
 function *lookup_label(char * label, function_pool *pool);
+function *get_leaf_function(int index, function_pool *pool);
 
 #endif
