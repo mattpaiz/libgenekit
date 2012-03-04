@@ -19,5 +19,9 @@ typedef struct {
 
 function *lookup_label(char * label, function_pool *pool);
 function *get_leaf_function(int index, function_pool *pool);
+function *get_branch_function(int index, function_pool *pool);
+
+int count_leaf_functions(function_pool *pool);
+int count_branch_functions(function_pool *pool);
 
 #endif

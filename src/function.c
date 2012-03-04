@@ -2,11 +2,44 @@
 #include <stdlib.h>
 #include "function.h"
 
+int count_leaf_functions(function_pool *pool) {
+  int c, sum = 0;
+
+  for(c = 0; c < pool->function_count; c++)
+    if(pool->functions[c].arg_count == 0)
+      sum++;
+
+  return sum;
+}
+
+int count_branch_functions(function_pool *pool) {
+  int c, sum = 0;
+
+  for(c = 0; c < pool->function_count; c++)
+    if(pool->functions[c].arg_count > 0)
+      sum++;
+
+  return sum;
+}
+
 function *get_leaf_function(int index, function_pool *pool) {
 
   int c;
   for(c = 0; c < pool->function_count; c++) {
     if(pool->functions[c].arg_count == 0) {
+      if(index-- == 0)
+        return &pool->functions[c];
+    }
+  }
+
+  return NULL;
+}
+
+function *get_branch_function(int index, function_pool *pool) {
+
+  int c;
+  for(c = 0; c < pool->function_count; c++) {
+    if(pool->functions[c].arg_count > 0) {
       if(index-- == 0)
         return &pool->functions[c];
     }

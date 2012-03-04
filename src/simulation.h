@@ -13,6 +13,7 @@ typedef struct {
   function_pool pool;
 
   void(*log_generation)(gk_population *, int); 
+  float(*fitness)(chromosome *); 
 } gk_simulation;
 
 void gk_set_population_size(gk_simulation *, int);

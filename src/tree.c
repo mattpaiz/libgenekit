@@ -3,7 +3,7 @@
 #include "tree.h"
 #include "rand.h"
 
-tree *get_random_node(function_pool *pool, int args, int level, int maxlevel);
+tree *get_random_node(function_pool *pool, int level, int maxlevel);
 
 tree *alloc_tree(function *function) {
   int c;
@@ -20,28 +20,18 @@ tree *alloc_tree(function *function) {
   return output;
 }
 
-int count_leaf_functions(function_pool *pool) {
-  int c, sum = 0;
-
-  for(c = 0; c < pool->function_count; c++)
-    if(pool->functions[c].arg_count == 0)
-      sum++;
-
-  return sum;
-}
-
 void append_random_node(tree *node, function_pool *pool, int level, int maxlevel) {
   int c;
 
   for(c = 0; c < node->f->arg_count; c++) {
     if(!node->args[c]) {
-      node->args[c] = get_random_node(pool, 0, level + 1, maxlevel);
+      node->args[c] = get_random_node(pool, level + 1, maxlevel);
       append_random_node(node->args[c], pool, level + 1, maxlevel);
     }
   }
 }
 
-tree *get_random_node(function_pool *pool, int args, int level, int maxlevel) {
+tree *get_random_node(function_pool *pool, int level, int maxlevel) {
   tree *node;
 
   if(level < maxlevel)
@@ -51,7 +41,7 @@ tree *get_random_node(function_pool *pool, int args, int level, int maxlevel) {
     int count = count_leaf_functions(pool);
 
     node = alloc_tree(get_leaf_function(RAND(count), pool));
-    node->primitive = RAND(10000);
+    node->primitive = RAND(10);
     return node;
   }
 }
