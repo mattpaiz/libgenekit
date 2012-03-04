@@ -7,7 +7,6 @@ int gk_run(gk_kernel *kernel, gk_simulation *sim) {
 
   gk_population population;
   population.individuals = (chromosome **) malloc(sizeof(chromosome *) * sim->population_size);
-  population.size = 0;
 
   kernel->init(sim);
   kernel->populate(sim, &population);
@@ -29,8 +28,7 @@ int gk_run(gk_kernel *kernel, gk_simulation *sim) {
   }
 
   kernel->cleanup(sim, &population);
-
-  free(population.individuals);
+  gk_clear_population(&population);
 
   return 0;
 }

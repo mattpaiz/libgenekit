@@ -41,7 +41,7 @@ tree *get_random_node(function_pool *pool, int level, int maxlevel) {
     int count = count_leaf_functions(pool);
 
     node = alloc_tree(get_leaf_function(RAND(count), pool));
-    node->primitive = RAND(10);
+    node->primitive = RAND(9) + 1;
     return node;
   }
 }

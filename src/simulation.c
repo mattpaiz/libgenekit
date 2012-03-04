@@ -23,16 +23,9 @@ void default_logger(gk_population *population, int generation) {
 
   printf("Generation %d [%f]: ",  generation, population->max_fitness);
 
-  /*for(i = 0; i < population->size; i++) {
-    char *equation = gk_to_string(population->individuals[i]);
-    printf("%s ", equation);
-    free(equation);
-  }*/
-
   char *equation = gk_to_string(population->individuals[population->max_index]);
   printf("%s ", equation);
   free(equation);
-
  
   printf("\n");
 }
