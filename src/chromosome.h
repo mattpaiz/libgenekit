@@ -12,13 +12,14 @@ struct _gk_population {
   int max_index;
 };
 
-struct _gk_chromosome {
-  gk_tree *node;
-  gk_function_pool *pool;
-  float fitness;
-};
-
+gk_population *gk_population_alloc(int);
 void gk_set_equation(gk_chromosome *, char *);
+gk_chromosome *gk_population_get_individual(gk_population *, int);
+void gk_chromosome_set_fitness(gk_chromosome *c, float fitness);
+float gk_chromosome_get_fitness(gk_chromosome *);
+void gk_population_alloc_individual(gk_population *population, gk_simulation *simulation, int index);
+
+void gk_chromosome_crossover(gk_chromosome *a, gk_chromosome *b, int max_depth);
 
 int set_chromosome_node(gk_chromosome *c, gk_tree *node);
 

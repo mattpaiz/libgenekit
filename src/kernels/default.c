@@ -10,8 +10,8 @@ int gk_default_populate(gk_simulation *sim, gk_population *population) {
  int i;
 
  for(i = 0; i < gk_simulation_get_population_size(sim); i++) {
-   population->individuals[i] = gk_alloc_chromosome(sim);
-   gk_randomize_chromosome(population->individuals[i], gk_simulation_get_max_depth(sim));
+   gk_population_alloc_individual(population, sim, i);
+   gk_randomize_chromosome(gk_population_get_individual(population, i), gk_simulation_get_max_depth(sim));
  }
 
  population->size = gk_simulation_get_population_size(sim);
@@ -36,7 +36,7 @@ int gk_default_process(gk_simulation *sim, gk_population *population) {
    male = gk_clone_chromosome(gk_select(population));
    female = gk_clone_chromosome(gk_select(population));
 
-   crossover(&male->node, &female->node, gk_simulation_get_max_depth(sim));
+   gk_chromosome_crossover(male, female, gk_simulation_get_max_depth(sim));
    individuals[i] = male;
    individuals[i + 1] = female;
  }

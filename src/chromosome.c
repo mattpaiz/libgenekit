@@ -5,7 +5,41 @@
 #include "simulation.h"
 #include "function.h"
 #include "chromosome.h"
+#include "mutate.h"
 
+struct _gk_chromosome {
+  gk_tree *node;
+  gk_function_pool *pool;
+  float fitness;
+};
+
+void gk_chromosome_crossover(gk_chromosome *a, gk_chromosome *b, int max_depth) {
+   crossover(&a->node, &b->node, max_depth);
+}
+
+gk_chromosome *gk_population_get_individual(gk_population *population, int index) {
+  return population->individuals[index];
+}
+
+void gk_population_alloc_individual(gk_population *population, gk_simulation *simulation, int index) {
+   population->individuals[index] = gk_alloc_chromosome(simulation);
+}
+
+gk_population *gk_population_alloc(int population_size) {
+
+  gk_population *population = (gk_population *) malloc(sizeof(gk_population));
+  population->individuals = (gk_chromosome **) malloc(sizeof(gk_chromosome *) * population_size);
+  population->size = population_size;
+  population->max_fitness = 0;
+  population->total_fitness = 0;
+  population->max_index = 0;
+
+  return population;
+}
+
+void gk_chromosome_set_fitness(gk_chromosome *c, float fitness) {
+  c->fitness = fitness;
+}
 
 float gk_chromosome_get_fitness(gk_chromosome *c) {
   return c->fitness;
