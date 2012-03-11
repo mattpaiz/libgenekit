@@ -1,27 +1,46 @@
-IDIR =.
-CC=gcc
-CFLAGS=-I$(IDIR) -g	-Wall
+IDIR        := .
+CC          := gcc
+CFLAGS      := -I$(IDIR) -g	-Wall
+BINDIR      := ../build
+LIBDIR      := ../lib
+HEADERDIR   := ../include/genekit
+LIBNAME     := libgenekit.a
+KERNELDIR   := kernels
 
-BINDIR=../build
-LIBDIR=../lib
+INSTALLDEP  := /usr/local/include/genekit
+INSTALLLIB  := /usr/local/lib
 
-_DEPS = 
-DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
+FILES       := $(wildcard *.c) $(wildcard $(KERNELDIR)/*.c)
+DEPS        := $(patsubst %.c,%.h,$(FILES)) rand.h
+HEADERS     := $(patsubst %.h,$(HEADERDIR)/%.h,$(DEPS))
+OBJS        := $(patsubst %.c,$(BINDIR)/%.o,$(FILES))
 
-_OBJ = function.o tree.o equation.o chromosome.o mutate.o simulation.o kernel.o
-OBJ = $(patsubst %,$(BINDIR)/%,$(_OBJ))
+OSNAME      := $(shell uname -s 2>/dev/null | tr [:lower:] [:upper:])
+ISLINUX     := $(strip $(findstring LINUX, $(OSNAME)))
 
-$(BINDIR)/%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+ifneq ($(LINUX),)
+  CFLAGS += -lm
+endif
 
-$(LIBDIR)/libgenekit.a: $(OBJ)
+$(LIBDIR)/$(LIBNAME) : $(OBJS) $(HEADERS)
 	ar rcs $@ $^
 
-install: $(LIBDIR)/libgenekit.a
-	cp $(LIBDIR)/libgenekit.a /usr/local/lib/		
-	cp genekit.h /usr/local/include/		
-	cp rand.h kernel.h simulation.h function.h tree.h equation.h chromosome.h mutate.h /usr/local/include/genekit/
+$(HEADERDIR)/%.h : %.h
+	@mkdir -p $(HEADERDIR)
+	@mkdir -p $(HEADERDIR)/$(KERNELDIR)
+	cp $< $@  
+
+$(BINDIR)/%.o : %.c $(DEPS)
+	@mkdir -p $(LIBDIR)
+	@mkdir -p $(BINDIR)
+	@mkdir -p $(BINDIR)/$(KERNELDIR)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+install: $(LIBDIR)/$(LIBNAME)
+	@mkdir -p $(INSTALLDEP)
+	cp $(LIBDIR)/$(LIBNAME) $(INSTALLLIB)
+	cp -r $(HEADERDIR)/  $(INSTALLDEP)
 
 clean: 
-	rm $(BINDIR)/*.o $(LIBDIR)/*.a
+	rm $(BINDIR)/*.o $(BINDIR)/$(KERNELDIR)/*.o $(LIBDIR)/*.a $(HEADERDIR)/*.h $(HEADERDIR)/$(KERNELDIR)/*.h
 

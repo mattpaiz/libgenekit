@@ -1,4 +1,5 @@
 #include <stdlib.h>
+
 #include "kernel.h"
 
 int gk_run(gk_kernel *kernel, gk_simulation *sim) {
