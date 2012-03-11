@@ -3,7 +3,37 @@
 #include "function.h"
 #include "tree.h"
 
+struct _gk_tree {
+  gk_tree **args;
+  gk_function *f;
+  float primitive;
+};
+
+gk_function *gk_tree_get_function(gk_tree *tree) {
+  return tree->f;
+}
+
+gk_tree **gk_tree_get_args(gk_tree *tree) {
+  return tree->args;
+}
+
+void gk_tree_node_assign(gk_tree *a, gk_tree *b) {
+  *a = *b;
+}
+
+void gk_tree_set_primitive(gk_tree *tree, float primitive) {
+  tree->primitive = primitive;
+}
+
+float gk_tree_get_primitive(gk_tree *tree) {
+  return tree->primitive;
+}
+
 gk_tree *get_random_node(gk_function_pool *pool, int level, int maxlevel);
+
+gk_tree *gk_tree_alloc_empty() {
+  return (gk_tree *) malloc(sizeof(gk_tree));
+}
 
 gk_tree *alloc_tree(gk_function *function) {
   int c;

@@ -1,8 +1,6 @@
 #ifndef __EQUATION_H__
 #define __EQUATION_H__
 
-#include <string.h>
-
 #include "genekit.h"
 
 int first_arg_length(char *left);
