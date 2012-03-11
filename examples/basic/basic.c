@@ -33,7 +33,7 @@ float primitive(float *data) {
   return data[0];
 }
 
-float fitness(chromosome *c) {
+float fitness(gk_chromosome *c) {
   return 0;
 }
 

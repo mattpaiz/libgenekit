@@ -25,12 +25,12 @@ int gk_default_terminate(gk_population *population, int generation) {
 
 int gk_default_process(gk_simulation *sim, gk_population *population) {
 
- chromosome *male;
- chromosome *female;
+ gk_chromosome *male;
+ gk_chromosome *female;
 
  int i;
 
- chromosome **individuals = (chromosome **) malloc(sizeof(chromosome *) * population->size);
+ gk_chromosome **individuals = (gk_chromosome **) malloc(sizeof(gk_chromosome *) * population->size);
 
  for(i = 0; i < population->size / 4; i+=2) {
    male = gk_clone_chromosome(gk_select(population));

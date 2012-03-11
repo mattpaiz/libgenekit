@@ -1,6 +1,7 @@
 #ifndef __TREE_H__
 #define __TREE_H__
 
+#include "genekit.h"
 #include "function.h"
 
 struct _tree;
@@ -27,6 +28,6 @@ float evaluate(tree *value);
 tree *get_node(tree *, int *);
 tree *get_node_and_parent(tree* root, int *index, tree**parent);
 int get_size(tree *node);
-void append_random_node(tree *node, function_pool *pool, int level, int maxlevel);
+void append_random_node(tree *node, function_pool pool, int level, int maxlevel);
 
 #endif

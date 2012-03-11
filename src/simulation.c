@@ -5,8 +5,8 @@
 #include "tree.h"
 #include "equation.h"
 #include "mutate.h"
-#include "rand.h"
 
+#include "chromosome.h"
 #include "simulation.h"
 
 struct _gk_simulation {
@@ -35,6 +35,10 @@ int gk_simulation_get_population_size(gk_simulation *sim) {
 }
 int gk_simulation_get_max_depth(gk_simulation *sim) {
   return sim->max_depth;
+}
+
+function_pool gk_simulation_get_function_pool(gk_simulation *sim) {
+  return sim->pool;
 }
 
 void gk_simulation_set_population_size(gk_simulation *sim, int population_size) {
@@ -73,13 +77,4 @@ void gk_simulation_set_function_pool(gk_simulation *sim, function *functions, in
   sim->pool.function_count = n;
 }
 
-
-chromosome *gk_alloc_chromosome(gk_simulation *simulation) { 
-
-  chromosome *c = (chromosome *) malloc(sizeof(chromosome)); 
-  c->pool = &simulation->pool;
-  c->node = NULL;
-
-  return c;
-}
 

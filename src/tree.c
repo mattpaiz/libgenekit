@@ -1,9 +1,8 @@
 #include <stdlib.h>
 
 #include "tree.h"
-#include "rand.h"
 
-tree *get_random_node(function_pool *pool, int level, int maxlevel);
+tree *get_random_node(function_pool pool, int level, int maxlevel);
 
 tree *alloc_tree(function *function) {
   int c;
@@ -20,7 +19,7 @@ tree *alloc_tree(function *function) {
   return output;
 }
 
-void append_random_node(tree *node, function_pool *pool, int level, int maxlevel) {
+void append_random_node(tree *node, function_pool pool, int level, int maxlevel) {
   int c;
 
   for(c = 0; c < node->f->arg_count; c++) {
@@ -31,11 +30,11 @@ void append_random_node(tree *node, function_pool *pool, int level, int maxlevel
   }
 }
 
-tree *get_random_node(function_pool *pool, int level, int maxlevel) {
+tree *get_random_node(function_pool pool, int level, int maxlevel) {
   tree *node;
 
   if(level < maxlevel)
-    return alloc_tree(&pool->functions[RAND(pool->function_count)]);
+    return alloc_tree(&pool.functions[RAND(pool.function_count)]);
   else {
 
     int count = count_leaf_functions(pool);

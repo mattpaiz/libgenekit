@@ -1,7 +1,6 @@
 #include <stdlib.h>
 
 #include "tree.h"
-#include "rand.h"
 #include "mutate.h"
 
 void crossover(tree **male, tree **female, int level) {

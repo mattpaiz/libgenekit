@@ -11,7 +11,7 @@ INSTALLDEP  := /usr/local/include/genekit
 INSTALLLIB  := /usr/local/lib
 
 FILES       := $(wildcard *.c) $(wildcard $(KERNELDIR)/*.c)
-DEPS        := $(patsubst %.c,%.h,$(FILES)) rand.h
+DEPS        := $(patsubst %.c,%.h,$(FILES)) rand.h genekit.h
 HEADERS     := $(patsubst %.h,$(HEADERDIR)/%.h,$(DEPS))
 OBJS        := $(patsubst %.c,$(BINDIR)/%.o,$(FILES))
 
