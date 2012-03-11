@@ -3,15 +3,15 @@
 #include "tree.h"
 #include "mutate.h"
 
-void crossover(tree **male, tree **female, int level) {
+void crossover(gk_tree **male, gk_tree **female, int level) {
 
   int male_size = RAND(get_size(*male));  
   int female_size = RAND(get_size(*female));
 
-  tree *m = get_node(*male, &male_size);
-  tree *f = get_node(*female, &female_size);
+  gk_tree *m = get_node(*male, &male_size);
+  gk_tree *f = get_node(*female, &female_size);
 
-  tree temp = *m;
+  gk_tree temp = *m;
   *m = *f;
 
   if(get_max_level(*male) > level) {

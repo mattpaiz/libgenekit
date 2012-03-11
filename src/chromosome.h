@@ -13,14 +13,14 @@ struct _gk_population {
 };
 
 struct _gk_chromosome {
-  tree *node;
+  gk_tree *node;
   gk_function_pool *pool;
   float fitness;
 };
 
 void gk_set_equation(gk_chromosome *, char *);
 
-int set_chromosome_node(gk_chromosome *c, tree *node);
+int set_chromosome_node(gk_chromosome *c, gk_tree *node);
 
 char *gk_to_string(gk_chromosome *c);
 gk_chromosome *gk_clone_chromosome(gk_chromosome *c);

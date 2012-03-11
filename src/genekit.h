@@ -13,5 +13,6 @@ typedef struct _gk_population gk_population;
 typedef struct _gk_simulation gk_simulation;
 typedef struct _gk_function gk_function;
 typedef struct _gk_function_pool gk_function_pool;
+typedef struct _gk_tree gk_tree;
 
 #endif

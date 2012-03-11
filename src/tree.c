@@ -3,14 +3,14 @@
 #include "function.h"
 #include "tree.h"
 
-tree *get_random_node(gk_function_pool *pool, int level, int maxlevel);
+gk_tree *get_random_node(gk_function_pool *pool, int level, int maxlevel);
 
-tree *alloc_tree(gk_function *function) {
+gk_tree *alloc_tree(gk_function *function) {
   int c;
 
-  tree *output = (tree *) malloc(sizeof(tree));
+  gk_tree *output = (gk_tree *) malloc(sizeof(gk_tree));
   output->f = function;
-  output->args = (gk_function_get_arg_count(function)) ? (tree **) malloc(gk_function_get_arg_count(function) * sizeof(tree *)) : NULL;
+  output->args = (gk_function_get_arg_count(function)) ? (gk_tree **) malloc(gk_function_get_arg_count(function) * sizeof(gk_tree *)) : NULL;
 
   for(c = 0; c < gk_function_get_arg_count(function); c++)
     output->args[c] = NULL;
@@ -20,7 +20,7 @@ tree *alloc_tree(gk_function *function) {
   return output;
 }
 
-void append_random_node(tree *node, gk_function_pool *pool, int level, int maxlevel) {
+void append_random_node(gk_tree *node, gk_function_pool *pool, int level, int maxlevel) {
   int c;
 
   for(c = 0; c < gk_function_get_arg_count(node->f); c++) {
@@ -31,8 +31,8 @@ void append_random_node(tree *node, gk_function_pool *pool, int level, int maxle
   }
 }
 
-tree *get_random_node(gk_function_pool *pool, int level, int maxlevel) {
-  tree *node;
+gk_tree *get_random_node(gk_function_pool *pool, int level, int maxlevel) {
+  gk_tree *node;
 
   if(level < maxlevel)
     return alloc_tree(gk_function_pool_get_random_function(pool));
@@ -46,9 +46,9 @@ tree *get_random_node(gk_function_pool *pool, int level, int maxlevel) {
   }
 }
 
-tree *copy_tree(tree *node) {
+gk_tree *copy_tree(gk_tree *node) {
 
-  tree *copy = alloc_tree(node->f);
+  gk_tree *copy = alloc_tree(node->f);
   int c;
 
   for(c = 0; c < gk_function_get_arg_count(copy->f); c++) {
@@ -60,7 +60,7 @@ tree *copy_tree(tree *node) {
   return copy;
 }
 
-int realloc_tree(tree *output, gk_function *function) {
+int realloc_tree(gk_tree *output, gk_function *function) {
   int c;
   int original = gk_function_get_arg_count(output->f);
 
@@ -70,7 +70,7 @@ int realloc_tree(tree *output, gk_function *function) {
   output->f = function;
 
   if(!gk_function_get_arg_count(function)) free(output->args); 
-  output->args = (gk_function_get_arg_count(function)) ? (tree **) realloc(output->args, gk_function_get_arg_count(function) * sizeof(tree *)) : NULL;
+  output->args = (gk_function_get_arg_count(function)) ? (gk_tree **) realloc(output->args, gk_function_get_arg_count(function) * sizeof(gk_tree *)) : NULL;
 
   for(c = original; c < gk_function_get_arg_count(function); c++)
     output->args[c] = NULL;
@@ -79,7 +79,7 @@ int realloc_tree(tree *output, gk_function *function) {
 
 }
 
-void free_tree(tree *node) {
+void free_tree(gk_tree *node) {
   int c;
   if(node && node->args) {
     for(c = 0; c < gk_function_get_arg_count(node->f); c++)
@@ -90,10 +90,10 @@ void free_tree(tree *node) {
   free(node);
 }
 
-tree *get_leaf(tree *root, int *index) {
+gk_tree *get_leaf(gk_tree *root, int *index) {
 
   int c;
-  tree *result;
+  gk_tree *result;
 
   if(gk_function_get_arg_count(root->f) == 0) {
     if(*index == 0) return root;
@@ -110,9 +110,9 @@ tree *get_leaf(tree *root, int *index) {
 }
 
 //TODO: temporary until parent pointer is used
-tree *get_node_and_parent(tree* root, int *index, tree** parent) {
+gk_tree *get_node_and_parent(gk_tree *root, int *index, gk_tree **parent) {
   int c;
-  tree *result;
+  gk_tree *result;
 
   if(*index == 0) return root;
 
@@ -127,10 +127,10 @@ tree *get_node_and_parent(tree* root, int *index, tree** parent) {
   return NULL;
 }
 
-tree *get_node(tree* root, int *index) {
+gk_tree *get_node(gk_tree *root, int *index) {
 
   int c;
-  tree *result;
+  gk_tree *result;
 
   if(*index == 0) return root;
 
@@ -143,7 +143,7 @@ tree *get_node(tree* root, int *index) {
   return NULL;
 }
 
-int get_size(tree *node) {
+int get_size(gk_tree *node) {
 
   int sum = 1;
   int c;
@@ -154,7 +154,7 @@ int get_size(tree *node) {
   return sum;
 }
 
-int count_leafs(tree *node) {
+int count_leafs(gk_tree *node) {
   int sum = 0;
   int c;
 
@@ -167,7 +167,7 @@ int count_leafs(tree *node) {
   return sum;
 }
 
-int get_max_level(tree *root) {
+int get_max_level(gk_tree *root) {
 
   int c, leaf_count = count_leafs(root);
   int b;
@@ -185,7 +185,7 @@ int get_max_level(tree *root) {
 }
 
 //TODO: Find More Efficient Way to Keep Track of This
-int get_level(tree *root, tree *node) {
+int get_level(gk_tree *root, gk_tree *node) {
 
   int c, level;
 
@@ -199,14 +199,14 @@ int get_level(tree *root, tree *node) {
   return -1;
 }
 
-float evaluate(tree *value) {
+float evaluate(gk_tree *value) {
 
   int c;
   float *arguments = (gk_function_get_arg_count(value->f) > 0) ? (float *) malloc(sizeof(float) * gk_function_get_arg_count(value->f)) : NULL;
   float result;
 
   for(c = 0; c < gk_function_get_arg_count(value->f); c++) {
-    arguments[c] = evaluate((tree *) value->args[c]);
+    arguments[c] = evaluate((gk_tree *) value->args[c]);
   }
 
   if(gk_function_get_label(value->f)[0] != '#')

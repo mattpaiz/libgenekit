@@ -3,6 +3,6 @@
 
 #include "genekit.h"
 
-void crossover(tree **male, tree **female, int level);
+void crossover(gk_tree **male, gk_tree **female, int level);
 
 #endif

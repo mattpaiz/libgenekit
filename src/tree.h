@@ -3,30 +3,27 @@
 
 #include "genekit.h"
 
-struct _tree;
-typedef struct _tree tree;
-
-struct _tree {
-  tree **args;
+struct _gk_tree {
+  gk_tree **args;
   gk_function *f;
   float primitive;
 };
 
-tree *alloc_tree(gk_function *function);
-int realloc_tree(tree *output, gk_function *function);
-void free_tree(tree *node);
-tree *copy_tree(tree *node);
+gk_tree *alloc_tree(gk_function *function);
+int realloc_tree(gk_tree *output, gk_function *function);
+void free_tree(gk_tree *node);
+gk_tree *copy_tree(gk_tree *node);
 
-int get_max_level(tree *root);
+int get_max_level(gk_tree *root);
 
 
-tree *get_leaf(tree *root, int *index);
-int get_level(tree *root, tree *node);
+gk_tree *get_leaf(gk_tree *root, int *index);
+int get_level(gk_tree *root, gk_tree *node);
 
-float evaluate(tree *value);
-tree *get_node(tree *, int *);
-tree *get_node_and_parent(tree* root, int *index, tree**parent);
-int get_size(tree *node);
-void append_random_node(tree *node, gk_function_pool *pool, int level, int maxlevel);
+float evaluate(gk_tree *value);
+gk_tree *get_node(gk_tree *, int *);
+gk_tree *get_node_and_parent(gk_tree *root, int *index, gk_tree **parent);
+int get_size(gk_tree *node);
+void append_random_node(gk_tree *node, gk_function_pool *pool, int level, int maxlevel);
 
 #endif

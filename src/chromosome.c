@@ -43,7 +43,7 @@ void gk_free_population(gk_population *c) {
   free(c);
 }
 
-int set_chromosome_node(gk_chromosome *c, tree *node) {
+int set_chromosome_node(gk_chromosome *c, gk_tree *node) {
   c->node = node;
   return 0;
 }

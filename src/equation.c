@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "function.h"
+#include "tree.h"
 #include "equation.h"
 
 int first_arg_length(char *left) {
@@ -20,7 +21,7 @@ int first_arg_length(char *left) {
   return (c - 1);
 }
 
-char *convert_to_hr_equation(tree *node) {
+char *convert_to_hr_equation(gk_tree *node) {
 
   int c, label_length; 
   char *buffer, *out;
@@ -91,7 +92,7 @@ char *convert_to_hr_equation(tree *node) {
 
 }
 
-char *convert_to_equation(tree *node) {
+char *convert_to_equation(gk_tree *node) {
 
   int c, label_length; 
   char *buffer, *out;
@@ -131,10 +132,10 @@ char *convert_to_equation(tree *node) {
   return buffer;
 }
 
-tree *convert_to_tree(char *equation, gk_function_pool *pool) {
+gk_tree *convert_to_tree(char *equation, gk_function_pool *pool) {
 
   gk_function *function; 
-  tree *output;
+  gk_tree *output;
 
   int arg_length, c;
 
