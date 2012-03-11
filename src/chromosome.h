@@ -3,7 +3,6 @@
 
 #include "genekit.h"
 #include "tree.h"
-#include "function.h"
 
 struct _gk_population {
   gk_chromosome **individuals;
@@ -15,7 +14,7 @@ struct _gk_population {
 
 struct _gk_chromosome {
   tree *node;
-  gk_function_pool pool;
+  gk_function_pool *pool;
   float fitness;
 };
 

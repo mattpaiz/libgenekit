@@ -3,6 +3,7 @@
 #include "tree.h"
 #include "equation.h"
 #include "simulation.h"
+#include "function.h"
 #include "chromosome.h"
 
 

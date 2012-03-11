@@ -1,6 +1,6 @@
 #include <genekit/simulation.h>
 #include <genekit/chromosome.h>
-#include <genekit/tree.h>
+#include <genekit/function.h>
 #include <genekit/mutate.h>
 #include <genekit/kernel.h>
 #include <genekit/kernels/default.h>
@@ -52,7 +52,8 @@ int main(void) {
   gk_function_pool_add_function(pool, &primitive, 0, "#");
   gk_function_pool_add_function(pool, &division, 2, "/");
   gk_function_pool_add_function(pool, &multiplication, 2, "*");
-  gk_simulation_set_function_pool(simulation, *pool);
+
+  gk_simulation_set_function_pool(simulation, pool);
 
   gk_kernel *my_kernel = gk_create_default_kernel();
   gk_run(my_kernel, simulation);
