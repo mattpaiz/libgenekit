@@ -8,7 +8,7 @@
 typedef struct {
   int (*init)(gk_simulation *);
   int (*populate)(gk_simulation *, gk_population *);
-  int (*process)(gk_simulation *, gk_population *);
+  gk_population *(*process)(gk_simulation *, gk_population *);
   int (*cleanup)(gk_simulation *, gk_population *);
   int (*terminate)(gk_population *, int); 
 } gk_kernel;

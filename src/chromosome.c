@@ -7,11 +7,55 @@
 #include "chromosome.h"
 #include "mutate.h"
 
+struct _gk_population {
+  gk_chromosome **individuals;
+  int size;
+  float max_fitness;
+  float total_fitness;
+  int max_index;
+};
+
 struct _gk_chromosome {
   gk_tree *node;
   gk_function_pool *pool;
   float fitness;
 };
+
+void gk_population_set_individual(gk_population *population, int index, gk_chromosome *c) {
+  population->individuals[index] = c;
+}
+
+float gk_population_get_max_fitness(gk_population *population) {
+  return population->max_fitness;
+}
+
+int gk_population_get_max_index(gk_population *population) {
+  return population->max_index;
+}
+
+float gk_population_get_total_fitness(gk_population *population) {
+  return population->total_fitness;
+}
+
+int gk_population_get_size(gk_population *population) {
+  return population->size;
+}
+
+void gk_population_register_fitness(gk_population *population, int index) {
+
+  float fitness = population->individuals[index]->fitness;
+  population->total_fitness += fitness;
+  if(fitness > population->max_fitness) {
+    population->max_index = index;
+    population->max_fitness = fitness;
+  }
+}
+
+void gk_population_reset_max_values(gk_population *population) {
+  population->max_fitness = 0;
+  population->total_fitness = 0;
+  population->max_index = 0;
+}
 
 void gk_chromosome_crossover(gk_chromosome *a, gk_chromosome *b, int max_depth) {
    crossover(&a->node, &b->node, max_depth);

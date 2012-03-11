@@ -4,13 +4,6 @@
 #include "genekit.h"
 #include "tree.h"
 
-struct _gk_population {
-  gk_chromosome **individuals;
-  int size;
-  float max_fitness;
-  float total_fitness;
-  int max_index;
-};
 
 gk_population *gk_population_alloc(int);
 void gk_set_equation(gk_chromosome *, char *);
@@ -19,6 +12,14 @@ void gk_chromosome_set_fitness(gk_chromosome *c, float fitness);
 float gk_chromosome_get_fitness(gk_chromosome *);
 void gk_population_alloc_individual(gk_population *population, gk_simulation *simulation, int index);
 
+void gk_population_reset_max_values(gk_population *);
+int gk_population_get_size(gk_population *);
+float gk_population_get_total_fitness(gk_population *);
+int gk_population_get_max_index(gk_population *);
+float gk_population_get_max_fitness(gk_population *);
+void gk_population_set_individual(gk_population *population, int index, gk_chromosome *c);
+
+void gk_population_register_fitness(gk_population *, int);
 void gk_chromosome_crossover(gk_chromosome *a, gk_chromosome *b, int max_depth);
 
 int set_chromosome_node(gk_chromosome *c, gk_tree *node);

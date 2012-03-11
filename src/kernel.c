@@ -16,23 +16,17 @@ int gk_run(gk_kernel *kernel, gk_simulation *sim) {
 
   while(!kernel->terminate(population, generation)) {
 
-    population->max_index = 0;
-    population->total_fitness = 0;
+    gk_population_reset_max_values(population);
 
-    for(i = 0; i < population->size; i++) {
+    for(i = 0; i < gk_population_get_size(population); i++) {
       individual = gk_population_get_individual(population, i);
-      population->total_fitness += (fitness = gk_simulation_fitness(sim)(individual));
       gk_chromosome_set_fitness(individual, fitness);
-
-      if(fitness > population->max_fitness) {
-        population->max_index = i;
-        population->max_fitness = fitness;
-      }
+      gk_population_register_fitness(population, i);
     }
-    population->max_fitness = gk_chromosome_get_fitness(gk_population_get_individual(population, population->max_index));
+
     gk_simulation_log(sim)(population, generation);
 
-    kernel->process(sim, population);
+    population = kernel->process(sim, population);
     generation++;
   }
 
@@ -49,7 +43,7 @@ gk_chromosome *gk_select(gk_population *population) {
 
   int c = 0;
 
-  while((c < population->size) && (sum += (gk_chromosome_get_fitness(gk_population_get_individual(population, c++)) / population->total_fitness)) < random);
+  while((c < gk_population_get_size(population)) && (sum += (gk_chromosome_get_fitness(gk_population_get_individual(population, c++)) / gk_population_get_total_fitness(population))) < random);
 
-  return population->individuals[c - 1];
+  return gk_population_get_individual(population, c - 1);
 }

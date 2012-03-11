@@ -51,9 +51,9 @@ void gk_simulation_set_max_depth(gk_simulation *sim, int max_depth) {
 
 void default_logger(gk_population *population, int generation) {
 
-  printf("Generation %d [%f]: ",  generation, population->max_fitness);
+  printf("Generation %d [%f]: ",  generation, gk_population_get_max_fitness(population));
 
-  char *equation = gk_to_string(population->individuals[population->max_index]);
+  char *equation = gk_to_string(gk_population_get_individual(population, gk_population_get_max_index(population)));
   printf("%s ", equation);
   free(equation);
  

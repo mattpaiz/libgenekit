@@ -14,8 +14,6 @@ int gk_default_populate(gk_simulation *sim, gk_population *population) {
    gk_randomize_chromosome(gk_population_get_individual(population, i), gk_simulation_get_max_depth(sim));
  }
 
- population->size = gk_simulation_get_population_size(sim);
-
  return 0; 
 }
 
@@ -23,36 +21,37 @@ int gk_default_terminate(gk_population *population, int generation) {
   return (generation >= 50000);
 }
 
-int gk_default_process(gk_simulation *sim, gk_population *population) {
+gk_population *gk_default_process(gk_simulation *sim, gk_population *population) {
 
  gk_chromosome *male;
  gk_chromosome *female;
 
  int i;
 
- gk_chromosome **individuals = (gk_chromosome **) malloc(sizeof(gk_chromosome *) * population->size);
+ //gk_chromosome **individuals = (gk_chromosome **) malloc(sizeof(gk_chromosome *) * gk_population_get_size(population));
 
- for(i = 0; i < population->size / 4; i+=2) {
+ gk_population *new_population = gk_population_alloc(gk_population_get_size(population));
+
+ for(i = 0; i < gk_population_get_size(population) / 4; i+=2) {
    male = gk_clone_chromosome(gk_select(population));
    female = gk_clone_chromosome(gk_select(population));
 
    gk_chromosome_crossover(male, female, gk_simulation_get_max_depth(sim));
-   individuals[i] = male;
-   individuals[i + 1] = female;
+   gk_population_set_individual(new_population, i, male);
+   gk_population_set_individual(new_population, i + 1, female);
  }
 
- for(i = population->size / 4; i < population->size; i++) {
-   individuals[i] = gk_clone_chromosome(gk_select(population));
+ for(i = gk_population_get_size(population) / 4; i < gk_population_get_size(population); i++) {
+   gk_population_set_individual(new_population, i, gk_clone_chromosome(gk_select(population)));
  }
 
  //Elitism?
- gk_free_chromosome(individuals[population->max_index]);
- individuals[population->max_index] = gk_clone_chromosome(population->individuals[population->max_index]);
+ //gk_free_chromosome(individuals[gk_population_get_max_index(population)]);
+ //individuals[gk_population_get_max_index(population)] = gk_clone_chromosome(population->individuals[gk_population_get_max_index(population)]);
 
  gk_clear_population(population);
- population->individuals = individuals;
 
- return 0; 
+ return new_population; 
 }
 
 int gk_default_init(gk_simulation *sim) {
