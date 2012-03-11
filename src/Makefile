@@ -22,8 +22,8 @@ ifneq ($(LINUX),)
   CFLAGS += -lm
 endif
 
-$(LIBDIR)/$(LIBNAME) : $(OBJS) $(HEADERS)
-	ar rcs $@ $^
+$(LIBDIR)/$(LIBNAME) : $(OBJS) $(HEADERS) 
+	ar rcs $@ $(OBJS) 
 
 $(HEADERDIR)/%.h : %.h
 	@mkdir -p $(HEADERDIR)
