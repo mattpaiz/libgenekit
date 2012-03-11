@@ -132,7 +132,7 @@ char *convert_to_equation(tree *node) {
 
 tree *convert_to_tree(char *equation, function_pool pool) {
 
-  function *function; 
+  gk_function *function; 
   tree *output;
 
   int arg_length, c;

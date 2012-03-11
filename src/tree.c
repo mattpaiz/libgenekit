@@ -1,10 +1,11 @@
 #include <stdlib.h>
 
+#include "function.h"
 #include "tree.h"
 
 tree *get_random_node(function_pool pool, int level, int maxlevel);
 
-tree *alloc_tree(function *function) {
+tree *alloc_tree(gk_function *function) {
   int c;
 
   tree *output = (tree *) malloc(sizeof(tree));
@@ -59,7 +60,7 @@ tree *copy_tree(tree *node) {
   return copy;
 }
 
-int realloc_tree(tree *output, function *function) {
+int realloc_tree(tree *output, gk_function *function) {
   int c;
   int original = output->f->arg_count;
 

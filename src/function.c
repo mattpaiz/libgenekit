@@ -22,7 +22,7 @@ int count_branch_functions(function_pool pool) {
   return sum;
 }
 
-function *get_leaf_function(int index, function_pool pool) {
+gk_function *get_leaf_function(int index, function_pool pool) {
 
   int c;
   for(c = 0; c < pool.function_count; c++) {
@@ -35,7 +35,7 @@ function *get_leaf_function(int index, function_pool pool) {
   return NULL;
 }
 
-function *get_branch_function(int index, function_pool pool) {
+gk_function *get_branch_function(int index, function_pool pool) {
 
   int c;
   for(c = 0; c < pool.function_count; c++) {
@@ -48,7 +48,7 @@ function *get_branch_function(int index, function_pool pool) {
   return NULL;
 }
 
-function *lookup_label(char *label, function_pool pool) {
+gk_function *lookup_label(char *label, function_pool pool) {
 
   int c;
 

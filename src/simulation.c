@@ -72,7 +72,7 @@ void gk_simulation_free(gk_simulation *simulation) {
   free(simulation);
 }
 
-void gk_simulation_set_function_pool(gk_simulation *sim, function *functions, int n) {
+void gk_simulation_set_function_pool(gk_simulation *sim, gk_function *functions, int n) {
   sim->pool.functions = functions;
   sim->pool.function_count = n;
 }

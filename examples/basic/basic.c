@@ -37,7 +37,7 @@ float fitness(gk_chromosome *c) {
   return 0;
 }
 
-function all_functions[] = {
+gk_function all_functions[] = {
   {&addition, 2, "+"},
   {&subtraction, 2, "-"},
   {&primitive, 0, "#"},

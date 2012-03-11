@@ -3,6 +3,7 @@
 
 #include "genekit.h"
 #include "tree.h"
+#include "function.h"
 
 struct _gk_population {
   gk_chromosome **individuals;

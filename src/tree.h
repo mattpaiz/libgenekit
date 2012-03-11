@@ -2,19 +2,18 @@
 #define __TREE_H__
 
 #include "genekit.h"
-#include "function.h"
 
 struct _tree;
 typedef struct _tree tree;
 
 struct _tree {
   tree **args;
-  function *f;
+  gk_function *f;
   float primitive;
 };
 
-tree *alloc_tree(function *function);
-int realloc_tree(tree *output, function *function);
+tree *alloc_tree(gk_function *function);
+int realloc_tree(tree *output, gk_function *function);
 void free_tree(tree *node);
 tree *copy_tree(tree *node);
 
