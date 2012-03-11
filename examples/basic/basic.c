@@ -47,15 +47,17 @@ function all_functions[] = {
 
 int main(void) {
 
-  gk_simulation *simulation = gk_create_simulation();
-  gk_set_population_size(simulation, 100);
-  gk_set_max_depth(simulation, 5);
-  gk_set_function_pool(simulation, all_functions, 5);
+  gk_simulation *simulation = gk_simulation_alloc();
 
-  simulation->fitness = &fitness;
+  gk_simulation_set_population_size(simulation, 100);
+  gk_simulation_set_max_depth(simulation, 5);
+  gk_simulation_set_function_pool(simulation, all_functions, 5);
+  gk_simulation_set_fitness(simulation, &fitness);
 
   gk_kernel *my_kernel = gk_create_default_kernel();
   gk_run(my_kernel, simulation);
+
+  gk_simulation_free(simulation);
 
   return 0;
 }
