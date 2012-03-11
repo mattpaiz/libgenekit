@@ -130,7 +130,7 @@ char *convert_to_equation(tree *node) {
   return buffer;
 }
 
-tree *convert_to_tree(char *equation, function_pool pool) {
+tree *convert_to_tree(char *equation, gk_function_pool pool) {
 
   gk_function *function; 
   tree *output;

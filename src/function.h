@@ -9,16 +9,16 @@ struct _gk_function {
   char label[LABEL_LIMIT];
 };
 
-struct _function_pool {
+struct _gk_function_pool {
   gk_function *functions;
   int function_count;
 };
 
-gk_function *lookup_label(char * label, function_pool pool);
-gk_function *get_leaf_function(int index, function_pool pool);
-gk_function *get_branch_function(int index, function_pool pool);
+gk_function *lookup_label(char * label, gk_function_pool pool);
+gk_function *get_leaf_function(int index, gk_function_pool pool);
+gk_function *get_branch_function(int index, gk_function_pool pool);
 
-int count_leaf_functions(function_pool pool);
-int count_branch_functions(function_pool pool);
+int count_leaf_functions(gk_function_pool pool);
+int count_branch_functions(gk_function_pool pool);
 
 #endif

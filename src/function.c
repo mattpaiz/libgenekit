@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "function.h"
 
-int count_leaf_functions(function_pool pool) {
+int count_leaf_functions(gk_function_pool pool) {
   int c, sum = 0;
 
   for(c = 0; c < pool.function_count; c++)
@@ -12,7 +12,7 @@ int count_leaf_functions(function_pool pool) {
   return sum;
 }
 
-int count_branch_functions(function_pool pool) {
+int count_branch_functions(gk_function_pool pool) {
   int c, sum = 0;
 
   for(c = 0; c < pool.function_count; c++)
@@ -22,7 +22,7 @@ int count_branch_functions(function_pool pool) {
   return sum;
 }
 
-gk_function *get_leaf_function(int index, function_pool pool) {
+gk_function *get_leaf_function(int index, gk_function_pool pool) {
 
   int c;
   for(c = 0; c < pool.function_count; c++) {
@@ -35,7 +35,7 @@ gk_function *get_leaf_function(int index, function_pool pool) {
   return NULL;
 }
 
-gk_function *get_branch_function(int index, function_pool pool) {
+gk_function *get_branch_function(int index, gk_function_pool pool) {
 
   int c;
   for(c = 0; c < pool.function_count; c++) {
@@ -48,7 +48,7 @@ gk_function *get_branch_function(int index, function_pool pool) {
   return NULL;
 }
 
-gk_function *lookup_label(char *label, function_pool pool) {
+gk_function *lookup_label(char *label, gk_function_pool pool) {
 
   int c;
 

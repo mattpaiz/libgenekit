@@ -3,7 +3,7 @@
 #include "function.h"
 #include "tree.h"
 
-tree *get_random_node(function_pool pool, int level, int maxlevel);
+tree *get_random_node(gk_function_pool pool, int level, int maxlevel);
 
 tree *alloc_tree(gk_function *function) {
   int c;
@@ -20,7 +20,7 @@ tree *alloc_tree(gk_function *function) {
   return output;
 }
 
-void append_random_node(tree *node, function_pool pool, int level, int maxlevel) {
+void append_random_node(tree *node, gk_function_pool pool, int level, int maxlevel) {
   int c;
 
   for(c = 0; c < node->f->arg_count; c++) {
@@ -31,7 +31,7 @@ void append_random_node(tree *node, function_pool pool, int level, int maxlevel)
   }
 }
 
-tree *get_random_node(function_pool pool, int level, int maxlevel) {
+tree *get_random_node(gk_function_pool pool, int level, int maxlevel) {
   tree *node;
 
   if(level < maxlevel)
