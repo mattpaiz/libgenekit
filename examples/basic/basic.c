@@ -6,7 +6,6 @@
 #include <genekit/kernels/default.h>
 
 #include <stdio.h>
-#include <math.h>
 #include <time.h>
 #include <stdlib.h>
 
@@ -15,6 +14,10 @@
 
 float addition(float *data) {
   return data[0] + data[1];
+}
+
+float myfabs(float i) {
+  return (i < 0) ? -i : i;
 }
 
 float multiplication(float *data) {
@@ -26,7 +29,7 @@ float subtraction(float *data) {
 }
 
 float division(float *data) {
-  return (data[1] != 0) ? data[0] / data[1] : 100000;
+  return (data[1] != 0) ? data[0] / data[1] : 0;
 }
 
 float primitive(float *data) {
@@ -34,7 +37,7 @@ float primitive(float *data) {
 }
 
 float fitness(gk_chromosome *c) {
-  return 0;
+  return 1.0 / myfabs(3.1415927 - gk_chromosome_evaluate(c));
 }
 
 int main(void) {

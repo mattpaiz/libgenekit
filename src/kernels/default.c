@@ -28,8 +28,6 @@ gk_population *gk_default_process(gk_simulation *sim, gk_population *population)
 
  int i;
 
- //gk_chromosome **individuals = (gk_chromosome **) malloc(sizeof(gk_chromosome *) * gk_population_get_size(population));
-
  gk_population *new_population = gk_population_alloc(gk_population_get_size(population));
 
  for(i = 0; i < gk_population_get_size(population) / 4; i+=2) {
@@ -45,11 +43,9 @@ gk_population *gk_default_process(gk_simulation *sim, gk_population *population)
    gk_population_set_individual(new_population, i, gk_clone_chromosome(gk_select(population)));
  }
 
- //Elitism?
+ gk_chromosome *best = gk_population_get_most_fit_individual(population);
  //gk_free_chromosome(individuals[gk_population_get_max_index(population)]);
- //individuals[gk_population_get_max_index(population)] = gk_clone_chromosome(population->individuals[gk_population_get_max_index(population)]);
-
- gk_clear_population(population);
+ gk_population_set_individual(new_population, gk_population_get_max_index(population), gk_clone_chromosome(best));
 
  return new_population; 
 }

@@ -7,7 +7,7 @@ int gk_run(gk_kernel *kernel, gk_simulation *sim) {
   int i, generation = 0;
   float fitness;
 
-  gk_population *population;
+  gk_population *population, *new_population;
   gk_chromosome *individual;
   population = gk_population_alloc(gk_simulation_get_population_size(sim));
 
@@ -20,13 +20,17 @@ int gk_run(gk_kernel *kernel, gk_simulation *sim) {
 
     for(i = 0; i < gk_population_get_size(population); i++) {
       individual = gk_population_get_individual(population, i);
+      fitness = gk_simulation_fitness(sim)(individual);
       gk_chromosome_set_fitness(individual, fitness);
       gk_population_register_fitness(population, i);
     }
 
     gk_simulation_log(sim)(population, generation);
 
-    population = kernel->process(sim, population);
+    new_population = kernel->process(sim, population);
+    gk_free_population(population);
+    population = new_population;
+
     generation++;
   }
 

@@ -109,6 +109,14 @@ void gk_free_chromosome(gk_chromosome *c) {
   free(c);
 }
 
+float gk_chromosome_evaluate(gk_chromosome *c) {
+  return evaluate(c->node);  
+}
+
+gk_chromosome *gk_population_get_most_fit_individual(gk_population *population) {
+  return population->individuals[population->max_index];
+}
+
 void gk_clear_population(gk_population *c) {
   int i;
   for(i = 0; i < c->size; i++) {
