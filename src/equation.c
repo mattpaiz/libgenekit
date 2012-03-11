@@ -26,7 +26,7 @@ char *convert_to_hr_equation(tree *node) {
 
   int hr = 0;
 
-  if(node->f->label[0] == '#') {
+  if(gk_function_get_label(node->f)[0] == '#') {
     char thebuffer[20];
 
     if(node->primitive > ((int)node->primitive))
@@ -36,28 +36,28 @@ char *convert_to_hr_equation(tree *node) {
 
     buffer = (char *) malloc(sizeof(char) * (label_length + 1)); //TODO: Look into reducing size
     strcpy(buffer,thebuffer);
-  } else if(node->f->label[0] == '+' || node->f->label[0] == '-' || node->f->label[0] == '*' || node->f->label[0] == '/' || node->f->label[0] == '^') {
+  } else if(gk_function_get_label(node->f)[0] == '+' || gk_function_get_label(node->f)[0] == '-' || gk_function_get_label(node->f)[0] == '*' || gk_function_get_label(node->f)[0] == '/' || gk_function_get_label(node->f)[0] == '^') {
     hr = 1;
-    label_length = strlen(node->f->label);
+    label_length = strlen(gk_function_get_label(node->f));
     buffer = (char *) malloc(sizeof(char) * 2);
     strcpy(buffer,"\0");
   } else {
-    if(node->f->label[0] != '_') {
-      label_length = strlen(node->f->label);
+    if(gk_function_get_label(node->f)[0] != '_') {
+      label_length = strlen(gk_function_get_label(node->f));
       buffer = (char *) malloc(sizeof(char) * (label_length + 3));
-      strcpy(buffer,node->f->label);
+      strcpy(buffer,gk_function_get_label(node->f));
     } else {
       buffer = (char *) malloc(sizeof(char) * 1);
       strcpy(buffer,"\0");
     }
   }
 
-  if(node->f->label[0] != '#' && node->f->label[0] != 'x' && node->f->label[0] != '_' && node->f->arg_count > 0)
+  if(gk_function_get_label(node->f)[0] != '#' && gk_function_get_label(node->f)[0] != 'x' && gk_function_get_label(node->f)[0] != '_' && gk_function_get_arg_count(node->f) > 0)
     strcat(buffer, "(");
 
   char *tmp;
 
-  for(c = 0; c < node->f->arg_count; c++) {
+  for(c = 0; c < gk_function_get_arg_count(node->f); c++) {
     out = convert_to_hr_equation(node->args[c]);
 
     if(node->args[c]->f == node->f && hr) {
@@ -75,15 +75,15 @@ char *convert_to_hr_equation(tree *node) {
     if(!hr) {
       //If comma isn't appended, allocated memory is not wasted since it will be used for the 
       //last paranthesis
-      if(c < (node->f->arg_count - 1)) strcat(buffer, ",");
+      if(c < (gk_function_get_arg_count(node->f) - 1)) strcat(buffer, ",");
     } else {
-      if(c < (node->f->arg_count - 1)) strcat(buffer, node->f->label);
+      if(c < (gk_function_get_arg_count(node->f) - 1)) strcat(buffer, gk_function_get_label(node->f));
     }
 
     free(out);
   }
 
-  if(node->f->label[0] != '#' && node->f->label[0] != 'x' && node->f->label[0] != '_' && node->f->arg_count > 0)
+  if(gk_function_get_label(node->f)[0] != '#' && gk_function_get_label(node->f)[0] != 'x' && gk_function_get_label(node->f)[0] != '_' && gk_function_get_arg_count(node->f) > 0)
     strcat(buffer, ")");
 
   return buffer;
@@ -95,7 +95,7 @@ char *convert_to_equation(tree *node) {
   int c, label_length; 
   char *buffer, *out;
 
-  if(node->f->label[0] == '#') {
+  if(gk_function_get_label(node->f)[0] == '#') {
     char thebuffer[20];
 
     if(node->primitive > ((int)node->primitive))
@@ -106,14 +106,14 @@ char *convert_to_equation(tree *node) {
     buffer = (char *) malloc(sizeof(char) * (label_length + 3));
     strcpy(buffer,thebuffer);
   } else {
-    label_length = strlen(node->f->label);
+    label_length = strlen(gk_function_get_label(node->f));
     buffer = (char *) malloc(sizeof(char) * (label_length + 3));
-    strcpy(buffer,node->f->label);
+    strcpy(buffer,gk_function_get_label(node->f));
   }
 
   strcat(buffer, "(");
 
-  for(c = 0; c < node->f->arg_count; c++) {
+  for(c = 0; c < gk_function_get_arg_count(node->f); c++) {
     out = convert_to_equation(node->args[c]);
 
     buffer = (char *) realloc(buffer, sizeof(char) * (strlen(buffer) + strlen(out) + 3));
@@ -121,7 +121,7 @@ char *convert_to_equation(tree *node) {
 
     //If comma isn't appended, allocated memory is not wasted since it will be used for the 
     //last paranthesis
-    if(c < (node->f->arg_count - 1)) strcat(buffer, ",");
+    if(c < (gk_function_get_arg_count(node->f) - 1)) strcat(buffer, ",");
 
     free(out);
   }
@@ -155,10 +155,10 @@ tree *convert_to_tree(char *equation, gk_function_pool pool) {
 
   output = alloc_tree(function);
 
-  if(function->label[0] == '#')
+  if(gk_function_get_label(function)[0] == '#')
     output->primitive = atof(buffer);
 
-  for(c = 0; c < function->arg_count; c++) {
+  for(c = 0; c < gk_function_get_arg_count(function); c++) {
     arg_length = first_arg_length(left);
     strncpy(buffer, left, arg_length); 
     buffer[arg_length] = '\0';

@@ -37,22 +37,22 @@ float fitness(gk_chromosome *c) {
   return 0;
 }
 
-gk_function all_functions[] = {
-  {&addition, 2, "+"},
-  {&subtraction, 2, "-"},
-  {&primitive, 0, "#"},
-  {&division, 2, "/"},
-  {&multiplication, 2, "*"},
-};
-
 int main(void) {
 
   gk_simulation *simulation = gk_simulation_alloc();
 
   gk_simulation_set_population_size(simulation, 100);
   gk_simulation_set_max_depth(simulation, 5);
-  gk_simulation_set_function_pool(simulation, all_functions, 5);
   gk_simulation_set_fitness(simulation, &fitness);
+
+  gk_function_pool *pool = gk_function_pool_alloc();
+
+  gk_function_pool_add_function(pool, &addition, 2, "+");
+  gk_function_pool_add_function(pool, &subtraction, 2, "-");
+  gk_function_pool_add_function(pool, &primitive, 0, "#");
+  gk_function_pool_add_function(pool, &division, 2, "/");
+  gk_function_pool_add_function(pool, &multiplication, 2, "*");
+  gk_simulation_set_function_pool(simulation, *pool);
 
   gk_kernel *my_kernel = gk_create_default_kernel();
   gk_run(my_kernel, simulation);
