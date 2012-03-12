@@ -64,16 +64,16 @@ void append_random_node(gk_tree *node, gk_function_pool *pool, int level, int ma
 gk_tree *get_random_node(gk_function_pool *pool, int level, int maxlevel) {
   gk_tree *node;
 
-  if(level < maxlevel)
-    return alloc_tree(gk_function_pool_get_random_function(pool));
-  else {
+  if(level < maxlevel) {
+    node = alloc_tree(gk_function_pool_get_random_function(pool));
+  } else {
 
     int count = count_leaf_functions(pool);
 
     node = alloc_tree(get_leaf_function(RAND(count), pool));
-    node->primitive = RAND(9) + 1;
-    return node;
   }
+  node->primitive = RAND(9) + 1;
+  return node;
 }
 
 gk_tree *copy_tree(gk_tree *node) {

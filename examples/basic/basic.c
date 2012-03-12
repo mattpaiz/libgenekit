@@ -44,8 +44,8 @@ int main(void) {
 
   gk_simulation *simulation = gk_simulation_alloc();
 
-  gk_simulation_set_population_size(simulation, 100);
-  gk_simulation_set_max_depth(simulation, 5);
+  gk_simulation_set_population_size(simulation, 1000);
+  gk_simulation_set_max_depth(simulation, 10);
   gk_simulation_set_fitness(simulation, &fitness);
 
   gk_function_pool *pool = gk_function_pool_alloc();

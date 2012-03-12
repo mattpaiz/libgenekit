@@ -20,8 +20,10 @@ int gk_run(gk_kernel *kernel, gk_simulation *sim) {
 
     for(i = 0; i < gk_population_get_size(population); i++) {
       individual = gk_population_get_individual(population, i);
-      fitness = gk_simulation_fitness(sim)(individual);
-      gk_chromosome_set_fitness(individual, fitness);
+      if(generation && i < gk_population_get_size(population) / 4) {
+        fitness = gk_simulation_fitness(sim)(individual);
+        gk_chromosome_set_fitness(individual, fitness);
+      }
       gk_population_register_fitness(population, i);
     }
     gk_simulation_log(sim)(population, generation);

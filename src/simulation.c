@@ -54,7 +54,7 @@ void default_logger(gk_population *population, int generation) {
   printf("Generation %d [%f]: ",  generation, gk_population_get_max_fitness(population));
 
   char *equation = gk_to_string(gk_population_get_individual(population, gk_population_get_max_index(population)));
-  printf("%s", equation);
+  printf("%s = %f", equation, gk_chromosome_evaluate(gk_population_get_most_fit_individual(population)));
   free(equation);
  
   printf("\n");
