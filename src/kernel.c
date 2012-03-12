@@ -24,7 +24,6 @@ int gk_run(gk_kernel *kernel, gk_simulation *sim) {
       gk_chromosome_set_fitness(individual, fitness);
       gk_population_register_fitness(population, i);
     }
-
     gk_simulation_log(sim)(population, generation);
 
     new_population = kernel->process(sim, population);

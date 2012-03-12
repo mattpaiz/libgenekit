@@ -13,6 +13,7 @@ float gk_chromosome_get_fitness(gk_chromosome *);
 void gk_population_alloc_individual(gk_population *population, gk_simulation *simulation, int index);
 gk_chromosome *gk_population_get_most_fit_individual(gk_population *population);
 float gk_chromosome_evaluate(gk_chromosome *c);
+char *gk_to_string_full(gk_chromosome *c);
 
 void gk_population_reset_max_values(gk_population *);
 int gk_population_get_size(gk_population *);

@@ -138,6 +138,10 @@ void gk_set_equation(gk_chromosome *c, char *equation) {
   c->node = convert_to_tree(equation, c->pool);
 }
 
+char *gk_to_string_full(gk_chromosome *c) {
+  return convert_to_equation(c->node);
+}
+
 char *gk_to_string(gk_chromosome *c) {
   return convert_to_hr_equation(c->node); 
 }

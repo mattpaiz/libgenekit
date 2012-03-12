@@ -41,7 +41,7 @@ char *convert_to_hr_equation(gk_tree *node) {
     strcpy(buffer,thebuffer);
   } else if(gk_function_get_label(gk_tree_get_function(node))[0] == '+' || gk_function_get_label(gk_tree_get_function(node))[0] == '-' || gk_function_get_label(gk_tree_get_function(node))[0] == '*' || gk_function_get_label(gk_tree_get_function(node))[0] == '/' || gk_function_get_label(gk_tree_get_function(node))[0] == '^') {
     hr = 1;
-    label_length = strlen(gk_function_get_label(gk_tree_get_function(node)));
+    //label_length = strlen(gk_function_get_label(gk_tree_get_function(node))); Verify
     buffer = (char *) malloc(sizeof(char) * 2);
     strcpy(buffer,"\0");
   } else {
@@ -64,11 +64,14 @@ char *convert_to_hr_equation(gk_tree *node) {
     out = convert_to_hr_equation(gk_tree_get_args(node)[c]);
 
     if(gk_tree_get_function(gk_tree_get_args(node)[c]) == gk_tree_get_function(node) && hr) {
-      tmp = malloc(sizeof(char) * strlen(out)); //TODO: Size check
-      tmp = strcpy(tmp, out + 1);
-      tmp[strlen(tmp) - 1] = '\0';
-      free(out);
-      out = tmp;
+      char first_letter = gk_function_get_label(gk_tree_get_function(node))[0];
+      if(first_letter == '+' || first_letter == '*') { //Associative Property
+        tmp = malloc(sizeof(char) * strlen(out)); //TODO: Size check
+        tmp = strcpy(tmp, out + 1);
+        tmp[strlen(tmp) - 1] = '\0';
+        free(out);
+        out = tmp;
+      }
     }
 
     buffer = (char *) realloc(buffer, sizeof(char) * (strlen(buffer) + strlen(out) + 3));
