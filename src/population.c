@@ -51,7 +51,7 @@ gk_chromosome *gk_population_get_individual(gk_population *population, int index
 }
 
 void gk_population_alloc_individual(gk_population *population, gk_simulation *simulation, int index) {
-   population->individuals[index] = gk_alloc_chromosome(simulation);
+   population->individuals[index] = gk_chromosome_alloc(simulation);
 }
 
 gk_population *gk_population_alloc(int population_size) {
@@ -73,7 +73,7 @@ gk_chromosome *gk_population_get_most_fit_individual(gk_population *population) 
 void gk_clear_population(gk_population *c) {
   int i;
   for(i = 0; i < c->size; i++) {
-    gk_free_chromosome(c->individuals[i]);
+    gk_chromosome_free(c->individuals[i]);
   }
 }
 
