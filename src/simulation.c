@@ -7,6 +7,7 @@
 #include "mutate.h"
 
 #include "chromosome.h"
+#include "population.h"
 #include "simulation.h"
 
 struct _gk_simulation {

@@ -4,6 +4,7 @@
 #include <math.h>
 
 #include "default.h"
+#include "population.h"
 
 int gk_default_populate(gk_simulation *sim, gk_population *population) {
 

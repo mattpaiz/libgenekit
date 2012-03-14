@@ -1,6 +1,7 @@
 #include <stdlib.h>
 
 #include "kernel.h"
+#include "population.h"
 
 int gk_run(gk_kernel *kernel, gk_simulation *sim) {
 
