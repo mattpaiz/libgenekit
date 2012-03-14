@@ -15,8 +15,8 @@ int gk_population_get_max_index(gk_population *);
 float gk_population_get_max_fitness(gk_population *);
 void gk_population_set_individual(gk_population *population, int index, gk_chromosome *c);
 void gk_population_register_fitness(gk_population *, int);
-void gk_free_population(gk_population *c);
-void gk_clear_population(gk_population *c);
+void gk_population_free(gk_population *c);
+void gk_population_clear(gk_population *);
 
 
 #endif

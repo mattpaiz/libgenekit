@@ -32,14 +32,14 @@ int gk_kernel_start(gk_kernel *kernel, gk_simulation *sim) {
     gk_simulation_log(sim)(population, generation);
 
     new_population = kernel->process(sim, population);
-    gk_free_population(population);
+    gk_population_free(population);
     population = new_population;
 
     generation++;
   }
 
   kernel->cleanup(sim, population);
-  gk_clear_population(population);
+  gk_population_clear(population);
 
   return 0;
 }

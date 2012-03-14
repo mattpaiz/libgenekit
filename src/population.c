@@ -70,15 +70,15 @@ gk_chromosome *gk_population_get_most_fit_individual(gk_population *population) 
   return population->individuals[population->max_index];
 }
 
-void gk_clear_population(gk_population *c) {
+void gk_population_clear(gk_population *c) {
   int i;
   for(i = 0; i < c->size; i++) {
     gk_chromosome_free(c->individuals[i]);
   }
 }
 
-void gk_free_population(gk_population *c) {
-  gk_clear_population(c);
+void gk_population_free(gk_population *c) {
+  gk_population_clear(c);
   free(c);
 }
 
