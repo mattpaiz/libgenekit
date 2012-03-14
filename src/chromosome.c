@@ -14,7 +14,7 @@ struct _gk_chromosome {
 };
 
 void gk_chromosome_crossover(gk_chromosome *a, gk_chromosome *b, int max_depth) {
-   crossover(&a->node, &b->node, max_depth);
+   gk_mutate_crossover(&a->node, &b->node, max_depth);
 }
 
 void gk_chromosome_set_fitness(gk_chromosome *c, float fitness) {

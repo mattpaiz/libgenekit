@@ -3,7 +3,7 @@
 #include "tree.h"
 #include "mutate.h"
 
-void crossover(gk_tree **male, gk_tree **female, int level) {
+void gk_mutate_crossover(gk_tree **male, gk_tree **female, int level) {
 
   int male_size = RAND(get_size(*male));  
   int female_size = RAND(get_size(*female));
