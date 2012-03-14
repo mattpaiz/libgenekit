@@ -159,7 +159,7 @@ gk_tree *gk_equation_convert(char *equation, gk_function_pool *pool) {
   strcpy(buffer, equation);
   buffer[left - equation - 1] = '\0';
 
-  function = lookup_label(buffer, pool);
+  function = gk_function_pool_lookup(buffer, pool);
 
   output = alloc_tree(function);
 

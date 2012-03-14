@@ -68,9 +68,9 @@ gk_tree *get_random_node(gk_function_pool *pool, int level, int maxlevel) {
     node = alloc_tree(gk_function_pool_get_random_function(pool));
   } else {
 
-    int count = count_leaf_functions(pool);
+    int count = gk_function_pool_count_leaves(pool);
 
-    node = alloc_tree(get_leaf_function(RAND(count), pool));
+    node = alloc_tree(gk_function_pool_get_leaf(RAND(count), pool));
   }
   node->primitive = RAND(9) + 1;
   return node;

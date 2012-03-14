@@ -49,7 +49,7 @@ char *gk_function_get_label(gk_function *f) {
   return f->label;
 }
 
-int count_leaf_functions(gk_function_pool *pool) {
+int gk_function_pool_count_leaves(gk_function_pool *pool) {
   int c, sum = 0;
 
   for(c = 0; c < pool->function_count; c++)
@@ -59,7 +59,7 @@ int count_leaf_functions(gk_function_pool *pool) {
   return sum;
 }
 
-int count_branch_functions(gk_function_pool *pool) {
+int gk_function_pool_count_branches(gk_function_pool *pool) {
   int c, sum = 0;
 
   for(c = 0; c < pool->function_count; c++)
@@ -69,7 +69,7 @@ int count_branch_functions(gk_function_pool *pool) {
   return sum;
 }
 
-gk_function *get_leaf_function(int index, gk_function_pool *pool) {
+gk_function *gk_function_pool_get_leaf(int index, gk_function_pool *pool) {
 
   int c;
   for(c = 0; c < pool->function_count; c++) {
@@ -82,7 +82,7 @@ gk_function *get_leaf_function(int index, gk_function_pool *pool) {
   return NULL;
 }
 
-gk_function *get_branch_function(int index, gk_function_pool *pool) {
+gk_function *gk_function_pool_get_branch(int index, gk_function_pool *pool) {
 
   int c;
   for(c = 0; c < pool->function_count; c++) {
@@ -95,7 +95,7 @@ gk_function *get_branch_function(int index, gk_function_pool *pool) {
   return NULL;
 }
 
-gk_function *lookup_label(char *label, gk_function_pool *pool) {
+gk_function *gk_function_pool_lookup(char *label, gk_function_pool *pool) {
 
   int c;
 

@@ -27,7 +27,7 @@ float gk_chromosome_get_fitness(gk_chromosome *c) {
 
 void gk_chromosome_randomize(gk_chromosome *c, int depth) {
    if(c->node) free_tree(c->node);
-   c->node = alloc_tree(get_branch_function(RAND(count_branch_functions(c->pool)), c->pool));
+   c->node = alloc_tree(gk_function_pool_get_branch(RAND(gk_function_pool_count_branches(c->pool)), c->pool));
    append_random_node(c->node, c->pool, 0, depth);
 }
 
