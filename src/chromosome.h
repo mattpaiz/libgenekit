@@ -2,7 +2,6 @@
 #define __CHROMOSOME_H__
 
 #include "genekit.h"
-#include "tree.h"
 
 char *gk_to_string(gk_chromosome *c);
 gk_chromosome *gk_clone_chromosome(gk_chromosome *c);

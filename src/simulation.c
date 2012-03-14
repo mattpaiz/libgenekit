@@ -2,7 +2,6 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "tree.h"
 #include "equation.h"
 #include "mutate.h"
 

@@ -2,8 +2,6 @@
 #define __KERNEL_H__
 
 #include "genekit.h"
-#include "chromosome.h"
-#include "simulation.h"
 
 typedef struct {
   int (*init)(gk_simulation *);

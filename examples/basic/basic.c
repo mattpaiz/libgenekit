@@ -1,7 +1,6 @@
 #include <genekit/simulation.h>
 #include <genekit/chromosome.h>
 #include <genekit/function.h>
-#include <genekit/mutate.h>
 #include <genekit/kernel.h>
 #include <genekit/kernels/default.h>
 
@@ -9,8 +8,8 @@
 #include <time.h>
 #include <stdlib.h>
 
-#define POPULATION_SIZE 100
-#define MAX_DEPTH 10
+#define POPULATION_SIZE 1000
+#define MAX_DEPTH 7 
 
 float addition(float *data) {
   return data[0] + data[1];
@@ -44,8 +43,8 @@ int main(void) {
 
   gk_simulation *simulation = gk_simulation_alloc();
 
-  gk_simulation_set_population_size(simulation, 1000);
-  gk_simulation_set_max_depth(simulation, 10);
+  gk_simulation_set_population_size(simulation, POPULATION_SIZE);
+  gk_simulation_set_max_depth(simulation, MAX_DEPTH);
   gk_simulation_set_fitness(simulation, &fitness);
 
   gk_function_pool *pool = gk_function_pool_alloc();

@@ -2,7 +2,6 @@
 #define __SIMULATION_H__
 
 #include "genekit.h"
-#include "tree.h"
 
 typedef float(*gk_fitness_function)(gk_chromosome *);
 typedef void(*gk_log_function)(gk_population *, int);
