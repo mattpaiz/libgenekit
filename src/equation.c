@@ -161,7 +161,7 @@ gk_tree *gk_equation_convert(char *equation, gk_function_pool *pool) {
 
   function = gk_function_pool_lookup(buffer, pool);
 
-  output = alloc_tree(function);
+  output = gk_tree_alloc(function);
 
   if(gk_function_get_label(function)[0] == '#')
     gk_tree_set_primitive(output, atof(buffer));

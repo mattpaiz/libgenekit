@@ -26,27 +26,27 @@ float gk_chromosome_get_fitness(gk_chromosome *c) {
 }
 
 void gk_chromosome_randomize(gk_chromosome *c, int depth) {
-   if(c->node) free_tree(c->node);
-   c->node = alloc_tree(gk_function_pool_get_branch(RAND(gk_function_pool_count_branches(c->pool)), c->pool));
-   append_random_node(c->node, c->pool, 0, depth);
+   if(c->node) gk_tree_free(c->node);
+   c->node = gk_tree_alloc(gk_function_pool_get_branch(RAND(gk_function_pool_count_branches(c->pool)), c->pool));
+   gk_tree_append_random(c->node, c->pool, 0, depth);
 }
 
 gk_chromosome *gk_chromosome_clone(gk_chromosome *c) {
   gk_chromosome *clone = (gk_chromosome *) malloc(sizeof(gk_chromosome));
   clone->fitness = c->fitness;
-  clone->node = copy_tree(c->node);
+  clone->node = gk_tree_clone(c->node);
   clone->pool = c->pool;
 
   return clone;
 }
 
 void gk_chromosome_free(gk_chromosome *c) {
-  if(c->node) free_tree(c->node);
+  if(c->node) gk_tree_free(c->node);
   free(c);
 }
 
 float gk_chromosome_evaluate(gk_chromosome *c) {
-  return evaluate(c->node);  
+  return gk_tree_evaluate(c->node);  
 }
 
 
