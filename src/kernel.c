@@ -5,7 +5,7 @@
 #include "simulation.h"
 #include "kernel.h"
 
-int gk_run(gk_kernel *kernel, gk_simulation *sim) {
+int gk_kernel_start(gk_kernel *kernel, gk_simulation *sim) {
 
   int i, generation = 0;
   float fitness;
@@ -44,14 +44,3 @@ int gk_run(gk_kernel *kernel, gk_simulation *sim) {
   return 0;
 }
 
-gk_chromosome *gk_select(gk_population *population) {
-
-  float random = FRAND();
-  float sum = 0;
-
-  int c = 0;
-
-  while((c < gk_population_get_size(population)) && (sum += (gk_chromosome_get_fitness(gk_population_get_individual(population, c++)) / gk_population_get_total_fitness(population))) < random);
-
-  return gk_population_get_individual(population, c - 1);
-}

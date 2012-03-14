@@ -58,7 +58,7 @@ int main(void) {
   gk_simulation_set_function_pool(simulation, pool);
 
   gk_kernel *my_kernel = gk_create_default_kernel();
-  gk_run(my_kernel, simulation);
+  gk_kernel_start(my_kernel, simulation);
 
   gk_simulation_free(simulation);
 

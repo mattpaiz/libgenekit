@@ -81,3 +81,14 @@ void gk_free_population(gk_population *c) {
   gk_clear_population(c);
   free(c);
 }
+
+gk_chromosome *gk_population_select(gk_population *population) {
+  float random = FRAND();
+  float sum = 0;
+
+  int c = 0;
+
+  while((c < gk_population_get_size(population)) && (sum += (gk_chromosome_get_fitness(gk_population_get_individual(population, c++)) / gk_population_get_total_fitness(population))) < random);
+
+  return gk_population_get_individual(population, c - 1);
+}

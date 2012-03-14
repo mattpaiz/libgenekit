@@ -32,8 +32,8 @@ gk_population *gk_default_process(gk_simulation *sim, gk_population *population)
  gk_population *new_population = gk_population_alloc(gk_population_get_size(population));
 
  for(i = 0; i < gk_population_get_size(population) / 4; i+=2) {
-   male = gk_chromosome_clone(gk_select(population));
-   female = gk_chromosome_clone(gk_select(population));
+   male = gk_chromosome_clone(gk_population_select(population));
+   female = gk_chromosome_clone(gk_population_select(population));
 
    gk_chromosome_crossover(male, female, gk_simulation_get_max_depth(sim));
    gk_population_set_individual(new_population, i, male);
@@ -41,7 +41,7 @@ gk_population *gk_default_process(gk_simulation *sim, gk_population *population)
  }
 
  for(i = gk_population_get_size(population) / 4; i < gk_population_get_size(population); i++) {
-   gk_population_set_individual(new_population, i, gk_chromosome_clone(gk_select(population)));
+   gk_population_set_individual(new_population, i, gk_chromosome_clone(gk_population_select(population)));
  }
 
  gk_chromosome *best = gk_population_get_most_fit_individual(population);

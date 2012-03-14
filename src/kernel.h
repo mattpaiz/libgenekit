@@ -11,7 +11,6 @@ typedef struct {
   int (*terminate)(gk_population *, int); 
 } gk_kernel;
 
-int gk_run(gk_kernel *kernel, gk_simulation *sim);
-gk_chromosome *gk_select(gk_population *population);
+int gk_kernel_start(gk_kernel *kernel, gk_simulation *sim);
 
 #endif
