@@ -6,6 +6,8 @@
 #include "tree.h"
 #include "equation.h"
 
+int first_arg_length(char *left);
+
 int first_arg_length(char *left) {
   int c = 0, depth = 0;
 
@@ -22,7 +24,7 @@ int first_arg_length(char *left) {
   return (c - 1);
 }
 
-char *convert_to_hr_equation(gk_tree *node) {
+char *gk_equation_alloc_hr(gk_tree *node) {
 
   int c, label_length; 
   char *buffer, *out;
@@ -61,7 +63,7 @@ char *convert_to_hr_equation(gk_tree *node) {
   char *tmp;
 
   for(c = 0; c < gk_function_get_arg_count(gk_tree_get_function(node)); c++) {
-    out = convert_to_hr_equation(gk_tree_get_args(node)[c]);
+    out = gk_equation_alloc_hr(gk_tree_get_args(node)[c]);
 
     if(gk_tree_get_function(gk_tree_get_args(node)[c]) == gk_tree_get_function(node) && hr) {
       char first_letter = gk_function_get_label(gk_tree_get_function(node))[0];
@@ -96,7 +98,7 @@ char *convert_to_hr_equation(gk_tree *node) {
 
 }
 
-char *convert_to_equation(gk_tree *node) {
+char *gk_equation_alloc(gk_tree *node) {
 
   int c, label_length; 
   char *buffer, *out;
@@ -120,7 +122,7 @@ char *convert_to_equation(gk_tree *node) {
   strcat(buffer, "(");
 
   for(c = 0; c < gk_function_get_arg_count(gk_tree_get_function(node)); c++) {
-    out = convert_to_equation(gk_tree_get_args(node)[c]);
+    out = gk_equation_alloc(gk_tree_get_args(node)[c]);
 
     buffer = (char *) realloc(buffer, sizeof(char) * (strlen(buffer) + strlen(out) + 3));
     strcat(buffer, out);
@@ -136,7 +138,7 @@ char *convert_to_equation(gk_tree *node) {
   return buffer;
 }
 
-gk_tree *convert_to_tree(char *equation, gk_function_pool *pool) {
+gk_tree *gk_equation_convert(char *equation, gk_function_pool *pool) {
 
   gk_function *function; 
   gk_tree *output;
@@ -170,7 +172,7 @@ gk_tree *convert_to_tree(char *equation, gk_function_pool *pool) {
     buffer[arg_length] = '\0';
 
     left += arg_length + 1;
-    gk_tree_get_args(output)[c] = convert_to_tree(buffer, pool);
+    gk_tree_get_args(output)[c] = gk_equation_convert(buffer, pool);
   }
 
   free(buffer);

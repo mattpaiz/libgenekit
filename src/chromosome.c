@@ -56,15 +56,15 @@ int gk_chromosome_set_node(gk_chromosome *c, gk_tree *node) {
 }
 
 void gk_chromosome_set_equation(gk_chromosome *c, char *equation) {
-  c->node = convert_to_tree(equation, c->pool);
+  c->node = gk_equation_convert(equation, c->pool);
 }
 
 char *gk_chromosome_to_string_full(gk_chromosome *c) {
-  return convert_to_equation(c->node);
+  return gk_equation_alloc(c->node);
 }
 
 char *gk_chromosome_to_string(gk_chromosome *c) {
-  return convert_to_hr_equation(c->node); 
+  return gk_equation_alloc_hr(c->node); 
 }
 
 
