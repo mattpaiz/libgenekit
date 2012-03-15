@@ -21,8 +21,11 @@
 #include <time.h>
 #include <math.h>
 
-#include "default.h"
 #include "population.h"
+#include "simulation.h"
+#include "chromosome.h"
+#include "default.h"
+#include "kernel.h"
 
 int gk_default_populate(gk_simulation *sim, gk_population *population) {
 

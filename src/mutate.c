@@ -18,7 +18,7 @@
 
 #include <stdlib.h>
 
-#include "tree.h"
+#include "DNA/tree.h"
 #include "mutate.h"
 
 void gk_mutate_crossover(gk_tree **male, gk_tree **female, int level) {

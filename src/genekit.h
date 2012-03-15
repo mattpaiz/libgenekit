@@ -32,5 +32,6 @@ typedef struct _gk_simulation gk_simulation;
 typedef struct _gk_function gk_function;
 typedef struct _gk_function_pool gk_function_pool;
 typedef struct _gk_tree gk_tree;
+typedef struct _gk_kernel gk_kernel;
 
 #endif

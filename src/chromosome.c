@@ -18,7 +18,7 @@
 
 #include <stdlib.h>
 
-#include "tree.h"
+#include "DNA/tree.h"
 #include "equation.h"
 #include "simulation.h"
 #include "function.h"

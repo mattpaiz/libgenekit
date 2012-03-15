@@ -21,7 +21,7 @@
 #include <string.h>
 
 #include "function.h"
-#include "tree.h"
+#include "DNA/tree.h"
 #include "equation.h"
 
 int first_arg_length(char *left);
