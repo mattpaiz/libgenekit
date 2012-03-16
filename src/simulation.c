@@ -30,7 +30,6 @@
 struct _gk_simulation {
   int population_size;
   int max_depth;
-  gk_function_pool *pool;
 
   gk_log_function log;
   gk_fitness_function fitness;
@@ -53,10 +52,6 @@ int gk_simulation_get_population_size(gk_simulation *sim) {
 }
 int gk_simulation_get_max_depth(gk_simulation *sim) {
   return sim->max_depth;
-}
-
-gk_function_pool *gk_simulation_get_function_pool(gk_simulation *sim) {
-  return sim->pool;
 }
 
 void gk_simulation_set_population_size(gk_simulation *sim, int population_size) {
@@ -88,10 +83,6 @@ gk_simulation *gk_simulation_alloc() {
 
 void gk_simulation_free(gk_simulation *simulation) {
   free(simulation);
-}
-
-void gk_simulation_set_function_pool(gk_simulation *sim, gk_function_pool *pool) {
-  sim->pool = pool;
 }
 
 

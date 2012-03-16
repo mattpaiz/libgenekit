@@ -23,12 +23,16 @@
 
 struct _gk_kernel {
   int (*init)(gk_simulation *);
-  int (*populate)(gk_simulation *, gk_population *);
+  int (*populate)(gk_kernel *, gk_simulation *, gk_population *);
   gk_population *(*process)(gk_simulation *, gk_population *);
   int (*cleanup)(gk_simulation *, gk_population *);
   int (*terminate)(gk_population *, int); 
+
+  gk_function_pool *pool;
 };
 
 int gk_kernel_start(gk_kernel *kernel, gk_simulation *sim);
+gk_function_pool *gk_kernel_get_function_pool(gk_kernel *kernel);
+void gk_kernel_set_function_pool(gk_kernel *kernel, gk_function_pool *pool);
 
 #endif

@@ -25,7 +25,7 @@ gk_population *gk_population_alloc(int);
 gk_chromosome *gk_population_get_individual(gk_population *, int);
 gk_chromosome *gk_population_get_most_fit_individual(gk_population *population);
 gk_chromosome *gk_population_select(gk_population *population);
-void gk_population_alloc_individual(gk_population *population, gk_simulation *simulation, int index);
+void gk_population_alloc_individual(gk_population *population, gk_kernel *kernel, int index);
 void gk_population_reset_max_values(gk_population *);
 int gk_population_get_size(gk_population *);
 float gk_population_get_total_fitness(gk_population *);

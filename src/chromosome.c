@@ -20,19 +20,26 @@
 
 #include "DNA/tree.h"
 #include "equation.h"
-#include "simulation.h"
+#include "kernel.h"
 #include "function.h"
 #include "chromosome.h"
 #include "mutate.h"
 
 struct _gk_chromosome {
-  gk_tree *node;
+  void *dna;
   gk_function_pool *pool;
   float fitness;
+  void (*_crossover)(gk_chromosome *, gk_chromosome *, int);
+  void (*_randomize)(gk_chromosome *, int);
+  char *(*_to_string)(gk_chromosome *);
 };
 
+void _gk_chromosome_crossover(gk_chromosome *a, gk_chromosome *b, int max_depth) {
+   gk_mutate_crossover(&a->dna, &b->dna, max_depth);
+}
+
 void gk_chromosome_crossover(gk_chromosome *a, gk_chromosome *b, int max_depth) {
-   gk_mutate_crossover(&a->node, &b->node, max_depth);
+  a->_crossover(a, b, max_depth);
 }
 
 void gk_chromosome_set_fitness(gk_chromosome *c, float fitness) {
@@ -43,54 +50,60 @@ float gk_chromosome_get_fitness(gk_chromosome *c) {
   return c->fitness;
 }
 
+void _gk_chromosome_randomize(gk_chromosome *c, int depth) {
+   if(c->dna) gk_tree_free(c->dna);
+   c->dna = gk_tree_alloc(gk_function_pool_get_branch(RAND(gk_function_pool_count_branches(c->pool)), c->pool));
+   gk_tree_append_random(c->dna, c->pool, 0, depth);
+}
+
 void gk_chromosome_randomize(gk_chromosome *c, int depth) {
-   if(c->node) gk_tree_free(c->node);
-   c->node = gk_tree_alloc(gk_function_pool_get_branch(RAND(gk_function_pool_count_branches(c->pool)), c->pool));
-   gk_tree_append_random(c->node, c->pool, 0, depth);
+  c->_randomize(c, depth);
 }
 
 gk_chromosome *gk_chromosome_clone(gk_chromosome *c) {
   gk_chromosome *clone = (gk_chromosome *) malloc(sizeof(gk_chromosome));
   clone->fitness = c->fitness;
-  clone->node = gk_tree_clone(c->node);
+  clone->dna = gk_tree_clone(c->dna);
   clone->pool = c->pool;
+  clone->_crossover = c->_crossover;
+  clone->_randomize = c->_randomize;
+  clone->_to_string = c->_to_string;
 
   return clone;
 }
 
 void gk_chromosome_free(gk_chromosome *c) {
-  if(c->node) gk_tree_free(c->node);
+  if(c->dna) gk_tree_free(c->dna);
   free(c);
 }
 
 float gk_chromosome_evaluate(gk_chromosome *c) {
-  return gk_tree_evaluate(c->node);  
+  return gk_tree_evaluate(c->dna);  
 }
 
 
-int gk_chromosome_set_node(gk_chromosome *c, gk_tree *node) {
-  c->node = node;
-  return 0;
+void gk_chromosome_set_dna(gk_chromosome *c, void *dna) {
+  c->dna = dna;
 }
 
 void gk_chromosome_set_equation(gk_chromosome *c, char *equation) {
-  c->node = gk_equation_convert(equation, c->pool);
+  c->dna = gk_equation_convert(equation, c->pool);
 }
 
-char *gk_chromosome_to_string_full(gk_chromosome *c) {
-  return gk_equation_alloc(c->node);
+char *_gk_chromosome_to_string(gk_chromosome *c) {
+  return gk_equation_alloc_hr(c->dna); 
 }
 
 char *gk_chromosome_to_string(gk_chromosome *c) {
-  return gk_equation_alloc_hr(c->node); 
+  return c->_to_string(c);
 }
 
-
-gk_chromosome *gk_chromosome_alloc(gk_simulation *sim) { 
-
+gk_chromosome *gk_chromosome_alloc(gk_kernel *kernel) { 
   gk_chromosome *c = (gk_chromosome *) malloc(sizeof(gk_chromosome)); 
-  c->pool = gk_simulation_get_function_pool(sim);
-  c->node = NULL;
-
+  c->pool = gk_kernel_get_function_pool(kernel);
+  c->dna = NULL;
+  c->_crossover = &_gk_chromosome_crossover;
+  c->_randomize = &_gk_chromosome_randomize;
+  c->_to_string = &_gk_chromosome_to_string;
   return c;
 }

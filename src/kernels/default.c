@@ -27,12 +27,12 @@
 #include "default.h"
 #include "kernel.h"
 
-int gk_default_populate(gk_simulation *sim, gk_population *population) {
+int gk_default_populate(gk_kernel *kernel, gk_simulation *sim, gk_population *population) {
 
  int i;
 
  for(i = 0; i < gk_simulation_get_population_size(sim); i++) {
-   gk_population_alloc_individual(population, sim, i);
+   gk_population_alloc_individual(population, kernel, i);
    gk_chromosome_randomize(gk_population_get_individual(population, i), gk_simulation_get_max_depth(sim));
  }
 
@@ -82,7 +82,6 @@ int gk_default_init(gk_simulation *sim) {
 int gk_default_cleanup(gk_simulation *sim, gk_population *population) {
   return 0;
 }
-
 
 gk_kernel *gk_create_default_kernel() {
 

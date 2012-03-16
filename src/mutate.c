@@ -21,7 +21,10 @@
 #include "DNA/tree.h"
 #include "mutate.h"
 
-void gk_mutate_crossover(gk_tree **male, gk_tree **female, int level) {
+void gk_mutate_crossover(void *a, void *b, int level) {
+
+  gk_tree **male = (gk_tree **) a;
+  gk_tree **female = (gk_tree **) b;
 
   int male_size = RAND(gk_tree_get_size(*male));  
   int female_size = RAND(gk_tree_get_size(*female));

@@ -68,8 +68,8 @@ gk_chromosome *gk_population_get_individual(gk_population *population, int index
   return population->individuals[index];
 }
 
-void gk_population_alloc_individual(gk_population *population, gk_simulation *simulation, int index) {
-   population->individuals[index] = gk_chromosome_alloc(simulation);
+void gk_population_alloc_individual(gk_population *population, gk_kernel *kernel, int index) {
+   population->individuals[index] = gk_chromosome_alloc(kernel);
 }
 
 gk_population *gk_population_alloc(int population_size) {

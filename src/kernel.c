@@ -33,7 +33,7 @@ int gk_kernel_start(gk_kernel *kernel, gk_simulation *sim) {
   population = gk_population_alloc(gk_simulation_get_population_size(sim));
 
   kernel->init(sim);
-  kernel->populate(sim, population);
+  kernel->populate(kernel, sim, population);
 
   while(!kernel->terminate(population, generation)) {
 
@@ -62,3 +62,10 @@ int gk_kernel_start(gk_kernel *kernel, gk_simulation *sim) {
   return 0;
 }
 
+gk_function_pool *gk_kernel_get_function_pool(gk_kernel *kernel) {
+  return kernel->pool;
+}
+
+void gk_kernel_set_function_pool(gk_kernel *kernel, gk_function_pool *pool) {
+  kernel->pool = pool;
+}

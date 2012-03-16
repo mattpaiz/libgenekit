@@ -21,6 +21,7 @@
 
 #include "genekit.h"
 
-void gk_mutate_crossover(gk_tree **male, gk_tree **female, int level);
+void gk_mutate_crossover(void *, void *, int level);
+void gk_mutate_crossover(void *, void *, int level);
 
 #endif
