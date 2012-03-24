@@ -1,5 +1,5 @@
 /*
- * genalg.c
+ * examples/genalg.c
  *
  * Copyright 2012 Matthew Paiz
  *

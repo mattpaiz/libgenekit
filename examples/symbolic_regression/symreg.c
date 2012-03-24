@@ -1,5 +1,5 @@
 /*
- * symreg.c
+ * examples/symreg.c
  *
  * Copyright 2012 Matthew Paiz
  *
