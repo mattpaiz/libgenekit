@@ -75,8 +75,10 @@ gk_population *gk_bare_process(gk_simulation *sim, gk_population *population) {
  }
 
  gk_chromosome *best = gk_population_get_most_fit_individual(population);
- //gk_free_chromosome(individuals[gk_population_get_max_index(population)]);
- gk_population_set_individual(new_population, gk_population_get_max_index(population), gk_chromosome_clone(best));
+
+ int m_index = gk_population_get_max_index(population);
+ gk_chromosome_free(gk_population_get_individual(new_population, m_index));
+ gk_population_set_individual(new_population, m_index, gk_chromosome_clone(best));
 
  return new_population; 
 }
