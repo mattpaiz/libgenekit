@@ -39,7 +39,7 @@ int gk_kernel_start(gk_kernel *kernel, gk_simulation *sim) {
   kernel->init(sim);
   kernel->populate(kernel, sim, population);
 
-  while(!kernel->terminate(population, generation)) {
+  while(!kernel->terminate(sim, population, generation)) {
 
     gk_population_reset_max_values(population);
 

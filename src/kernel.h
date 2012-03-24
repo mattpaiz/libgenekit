@@ -26,7 +26,7 @@ struct _gk_kernel {
   int (*populate)(gk_kernel *, gk_simulation *, gk_population *);
   gk_population *(*process)(gk_simulation *, gk_population *);
   int (*cleanup)(gk_simulation *, gk_population *);
-  int (*terminate)(gk_population *, int); 
+  int (*terminate)(gk_simulation *, gk_population *, int); 
   gk_function_pool *pool;
   void **bindings;
 };

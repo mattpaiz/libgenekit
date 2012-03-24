@@ -26,6 +26,7 @@
 #include <math.h>
 
 #define POPULATION_SIZE 100
+#define MAX_GENERATIONS 5000
 #define MAX_DEPTH 4 
 
 float addition(float *data) {
@@ -58,6 +59,7 @@ int main(void) {
 
   gk_simulation_set_population_size(simulation, POPULATION_SIZE);
   gk_simulation_set_max_depth(simulation, MAX_DEPTH);
+  gk_simulation_set_max_generations(simulation, MAX_GENERATIONS);
   gk_simulation_set_fitness(simulation, &fitness);
 
   gk_function_pool *pool = gk_function_pool_alloc();

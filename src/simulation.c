@@ -29,6 +29,7 @@
 struct _gk_simulation {
   int population_size;
   int max_depth;
+  int max_generations;
 
   gk_log_function log;
   gk_fitness_function fitness;
@@ -49,8 +50,17 @@ void gk_simulation_set_fitness(gk_simulation *sim, gk_fitness_function f) {
 int gk_simulation_get_population_size(gk_simulation *sim) {
   return sim->population_size;
 }
+
 int gk_simulation_get_max_depth(gk_simulation *sim) {
   return sim->max_depth;
+}
+
+int gk_simulation_get_max_generations(gk_simulation *sim) {
+  return sim->max_generations;
+}
+
+void gk_simulation_set_max_generations(gk_simulation *sim, int max_generations) {
+  sim->max_generations = max_generations;
 }
 
 void gk_simulation_set_population_size(gk_simulation *sim, int population_size) {

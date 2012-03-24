@@ -24,6 +24,7 @@
 #include <math.h>
 
 #define POPULATION_SIZE 100
+#define MAX_GENERATIONS 5000
 
 float fitness(gk_chromosome *c) {
   float x = gk_chromosome_evaluate(c);
@@ -35,6 +36,7 @@ int main(void) {
   gk_simulation *simulation = gk_simulation_alloc();
 
   gk_simulation_set_population_size(simulation, POPULATION_SIZE);
+  gk_simulation_set_max_generations(simulation, MAX_GENERATIONS);
   gk_simulation_set_fitness(simulation, &fitness);
 
   gk_kernel *my_kernel = gk_create_ga_kernel();

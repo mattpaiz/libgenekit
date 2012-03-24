@@ -42,8 +42,8 @@ int gk_bare_populate(gk_kernel *kernel, gk_simulation *sim, gk_population *popul
  return 0; 
 }
 
-int gk_bare_terminate(gk_population *population, int generation) {
-  return (generation >= 50000);
+int gk_bare_terminate(gk_simulation *sim, gk_population *population, int generation) {
+  return (generation >= gk_simulation_get_max_generations(sim));
 }
 
 gk_population *gk_bare_process(gk_simulation *sim, gk_population *population) {

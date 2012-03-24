@@ -37,4 +37,7 @@ int gk_simulation_get_max_depth(gk_simulation *);
 gk_simulation *gk_simulation_alloc();
 void gk_simulation_free(gk_simulation *);
 
+int gk_simulation_get_max_generations(gk_simulation *sim);
+void gk_simulation_set_max_generations(gk_simulation *sim, int max_generations);
+
 #endif
