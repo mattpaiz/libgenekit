@@ -97,6 +97,7 @@ void gk_population_clear(gk_population *c) {
 
 void gk_population_free(gk_population *c) {
   gk_population_clear(c);
+  free(c->individuals);
   free(c);
 }
 

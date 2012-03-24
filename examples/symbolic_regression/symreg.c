@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define POPULATION_SIZE 1000
+#define POPULATION_SIZE 100
 #define MAX_DEPTH 7 
 
 float addition(float *data) {
