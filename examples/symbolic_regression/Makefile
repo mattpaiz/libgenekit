@@ -1,5 +1,5 @@
 IDIR        := .
-BINFILE     := basic 
+BINFILE     := symreg 
 CC          := gcc
 CFLAGS      := -Wall -lgenekit
 LIB         := ../../lib
@@ -14,7 +14,7 @@ ifneq ($(LINUX),)
   CFLAGS += -lm
 endif
 
-basic : $(FILES) 
+symreg : $(FILES) 
 	$(CC) -o $(BINFILE) $(FILES) $(CFLAGS) -I$(INCLUDE) -L$(LIB)
 
 clean: 

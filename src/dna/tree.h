@@ -36,7 +36,6 @@ gk_function *gk_tree_get_function(gk_tree *);
 float gk_tree_get_primitive(gk_tree *);
 gk_tree **gk_tree_get_args(gk_tree *);
 
-
 gk_tree *gk_tree_get_leaf(gk_tree *root, int *index);
 int gk_tree_get_level(gk_tree *root, gk_tree *node);
 

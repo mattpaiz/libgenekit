@@ -34,8 +34,8 @@ struct _gk_chromosome {
   char *(*_to_string)(gk_chromosome *);
 };
 
-void _gk_chromosome_crossover(gk_chromosome *a, gk_chromosome *b, int max_depth) {
-   gk_mutate_crossover(&a->dna, &b->dna, max_depth);
+void **gk_chromosome_get_dna(gk_chromosome *chromosome) {
+  return &chromosome->dna;
 }
 
 void gk_chromosome_crossover(gk_chromosome *a, gk_chromosome *b, int max_depth) {
@@ -48,12 +48,6 @@ void gk_chromosome_set_fitness(gk_chromosome *c, float fitness) {
 
 float gk_chromosome_get_fitness(gk_chromosome *c) {
   return c->fitness;
-}
-
-void _gk_chromosome_randomize(gk_chromosome *c, int depth) {
-   if(c->dna) gk_tree_free(c->dna);
-   c->dna = gk_tree_alloc(gk_function_pool_get_branch(RAND(gk_function_pool_count_branches(c->pool)), c->pool));
-   gk_tree_append_random(c->dna, c->pool, 0, depth);
 }
 
 void gk_chromosome_randomize(gk_chromosome *c, int depth) {
@@ -90,20 +84,21 @@ void gk_chromosome_set_equation(gk_chromosome *c, char *equation) {
   c->dna = gk_equation_convert(equation, c->pool);
 }
 
-char *_gk_chromosome_to_string(gk_chromosome *c) {
-  return gk_equation_alloc_hr(c->dna); 
-}
-
 char *gk_chromosome_to_string(gk_chromosome *c) {
   return c->_to_string(c);
+}
+
+gk_function_pool *gk_chromosome_get_pool(gk_chromosome *chromosome) {
+  return chromosome->pool;
 }
 
 gk_chromosome *gk_chromosome_alloc(gk_kernel *kernel) { 
   gk_chromosome *c = (gk_chromosome *) malloc(sizeof(gk_chromosome)); 
   c->pool = gk_kernel_get_function_pool(kernel);
+  c->_crossover = gk_kernel_get_binding(kernel, GK_KERNEL_BINDING_CROSSOVER);
+  c->_randomize = gk_kernel_get_binding(kernel, GK_KERNEL_BINDING_RANDOMIZE);
+  c->_to_string = gk_kernel_get_binding(kernel, GK_KERNEL_BINDING_DISPLAY);
   c->dna = NULL;
-  c->_crossover = &_gk_chromosome_crossover;
-  c->_randomize = &_gk_chromosome_randomize;
-  c->_to_string = &_gk_chromosome_to_string;
+
   return c;
 }

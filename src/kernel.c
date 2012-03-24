@@ -23,6 +23,10 @@
 #include "simulation.h"
 #include "kernel.h"
 
+void *gk_kernel_get_binding(gk_kernel *kernel, int binding) {
+  return kernel->bindings[binding];
+}
+
 int gk_kernel_start(gk_kernel *kernel, gk_simulation *sim) {
 
   int i, generation = 0;

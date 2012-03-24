@@ -24,6 +24,13 @@
 #define RAND(X) (rand() % X) 
 #define FRAND() (((float) rand())/ ((float) RAND_MAX)) 
 
+#define GK_BINDING_COUNT 4
+
+#define GK_KERNEL_BINDING_CROSSOVER  0
+#define GK_KERNEL_BINDING_DISPLAY    1
+#define GK_KERNEL_BINDING_RANDOMIZE  2
+#define GK_KERNEL_BINDING_MUTATE     3
+
 typedef DATATYPE(*function_ptr)(DATATYPE *); 
 
 typedef struct _gk_chromosome gk_chromosome;
