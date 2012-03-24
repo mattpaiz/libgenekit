@@ -1,4 +1,18 @@
-libgenekit v0.0.4
+libgenekit v0.0.5
 -----------------
 
-libgenekit is a C library for evolutionary computation applications
+INTRODUCTION
+
+libgenekit is an open source C library made for evolutionary computation applications. 
+It is designed to act as a single, standardized framework for various types of EC 
+applications, such as genetic algorithms, genetic programming, symbolic regression,
+etc. Currently it is in the early stages of development, and the overall architecture
+of the library is likely to change drastically. This is my first major C project, so
+any feedback would be greatly appreciated. Enjoy :)
+
+INSTALLATION
+
+The library itself is contained with the 'src' directory. I have included a single 
+Makefile that can be used to build a static library. I intend to add autoconf 
+support in later versions. In addition, there is sample code included in the
+examples directory.

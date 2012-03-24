@@ -1,6 +1,9 @@
 /*
  * examples/symreg.c
  *
+ * Simple program that derives a mathematical expression to
+ * approximate pi
+ *
  * Copyright 2012 Matthew Paiz
  *
  * Licensed under the Apache License, Version 2.0 (the "License");

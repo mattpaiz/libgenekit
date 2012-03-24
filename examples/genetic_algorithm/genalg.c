@@ -1,6 +1,8 @@
 /*
  * examples/genalg.c
  *
+ * Simple program that finds the square root of pi using GAs 
+ *
  * Copyright 2012 Matthew Paiz
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
