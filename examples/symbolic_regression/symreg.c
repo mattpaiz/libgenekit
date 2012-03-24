@@ -1,5 +1,5 @@
 /*
- * basic.c
+ * symreg.c
  *
  * Copyright 2012 Matthew Paiz
  *
@@ -22,19 +22,14 @@
 #include <genekit/kernel.h>
 #include <genekit/kernels/sr.h>
 
-#include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define POPULATION_SIZE 1000
 #define MAX_DEPTH 7 
 
 float addition(float *data) {
   return data[0] + data[1];
-}
-
-float myfabs(float i) {
-  return (i < 0) ? -i : i;
 }
 
 float multiplication(float *data) {
@@ -54,7 +49,7 @@ float primitive(float *data) {
 }
 
 float fitness(gk_chromosome *c) {
-  return 1.0 / myfabs(3.1415927 - gk_chromosome_evaluate(c));
+  return 1.0 / fabs(3.1415927 - gk_chromosome_evaluate(c));
 }
 
 int main(void) {
@@ -72,7 +67,6 @@ int main(void) {
   gk_function_pool_add_function(pool, &primitive, 0, "#");
   gk_function_pool_add_function(pool, &division, 2, "/");
   gk_function_pool_add_function(pool, &multiplication, 2, "*");
-
 
   gk_kernel *my_kernel = gk_create_sr_kernel();
   gk_kernel_set_function_pool(my_kernel, pool);
