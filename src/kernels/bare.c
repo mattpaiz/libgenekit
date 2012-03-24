@@ -1,5 +1,5 @@
 /*
- * kernels/default.c
+ * kernels/bare.c
  *
  * Copyright 2012 Matthew Paiz
  *
@@ -24,14 +24,14 @@
 #include "population.h"
 #include "simulation.h"
 #include "chromosome.h"
-#include "default.h"
+#include "bare.h"
 #include "kernel.h"
 #include "mutate.h"
 #include "function.h"
 #include "equation.h"
 #include "dna/tree.h"
 
-int gk_default_populate(gk_kernel *kernel, gk_simulation *sim, gk_population *population) {
+int gk_bare_populate(gk_kernel *kernel, gk_simulation *sim, gk_population *population) {
 
  int i;
 
@@ -43,11 +43,11 @@ int gk_default_populate(gk_kernel *kernel, gk_simulation *sim, gk_population *po
  return 0; 
 }
 
-int gk_default_terminate(gk_population *population, int generation) {
+int gk_bare_terminate(gk_population *population, int generation) {
   return (generation >= 50000);
 }
 
-gk_population *gk_default_process(gk_simulation *sim, gk_population *population) {
+gk_population *gk_bare_process(gk_simulation *sim, gk_population *population) {
 
  gk_chromosome *male;
  gk_chromosome *female;
@@ -76,53 +76,27 @@ gk_population *gk_default_process(gk_simulation *sim, gk_population *population)
  return new_population; 
 }
 
-int gk_default_init(gk_simulation *sim) {
+int gk_bare_init(gk_simulation *sim) {
   srand(time(NULL));
   rand();
 
   return 0;
 }
 
-int gk_default_cleanup(gk_simulation *sim, gk_population *population) {
+int gk_bare_cleanup(gk_simulation *sim, gk_population *population) {
   return 0;
 }
 
-void _gk_default_crossover(gk_chromosome *a, gk_chromosome *b, int max_depth) {
-
-  void *dna_a = gk_chromosome_get_dna(a);
-  void *dna_b = gk_chromosome_get_dna(b);
-
-  gk_mutate_crossover(dna_a, dna_b, max_depth);
-}
-
-void _gk_chromosome_randomize(gk_chromosome *c, int depth) {
-
-  void *dna_c = *gk_chromosome_get_dna(c);
-  gk_function_pool *pool = gk_chromosome_get_pool(c);
-
-  if(dna_c) gk_tree_free(dna_c);
-  gk_chromosome_set_dna(c, gk_tree_alloc(gk_function_pool_get_branch(RAND(gk_function_pool_count_branches(pool)), pool)));
-
-  gk_tree_append_random(*gk_chromosome_get_dna(c), pool, 0, depth);
-}
-
-char *_gk_default_to_string(gk_chromosome *c) {
-  return gk_equation_alloc_hr(*gk_chromosome_get_dna(c)); 
-}
-
-gk_kernel *gk_create_default_kernel() {
+gk_kernel *gk_create_bare_kernel() {
 
   gk_kernel *my_kernel = (gk_kernel *) malloc(sizeof(gk_kernel));
-  my_kernel->init = &gk_default_init;
-  my_kernel->populate = &gk_default_populate;
-  my_kernel->process = &gk_default_process;
-  my_kernel->terminate = &gk_default_terminate;
-  my_kernel->cleanup = &gk_default_cleanup;
+  my_kernel->init = &gk_bare_init;
+  my_kernel->populate = &gk_bare_populate;
+  my_kernel->process = &gk_bare_process;
+  my_kernel->terminate = &gk_bare_terminate;
+  my_kernel->cleanup = &gk_bare_cleanup;
 
   my_kernel->bindings = malloc(sizeof(void *) * GK_BINDING_COUNT);
-  my_kernel->bindings[GK_KERNEL_BINDING_CROSSOVER] = &_gk_default_crossover;
-  my_kernel->bindings[GK_KERNEL_BINDING_RANDOMIZE] = &_gk_chromosome_randomize;
-  my_kernel->bindings[GK_KERNEL_BINDING_DISPLAY] = &_gk_default_to_string;
 
   return my_kernel;
 }

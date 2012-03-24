@@ -1,5 +1,5 @@
 /*
- * tree.c
+ * dna/tree.c
  *
  * Copyright 2012 Matthew Paiz
  *

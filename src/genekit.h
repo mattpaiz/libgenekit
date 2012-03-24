@@ -24,12 +24,15 @@
 #define RAND(X) (rand() % X) 
 #define FRAND() (((float) rand())/ ((float) RAND_MAX)) 
 
-#define GK_BINDING_COUNT 4
+#define GK_BINDING_COUNT 7
 
 #define GK_KERNEL_BINDING_CROSSOVER  0
 #define GK_KERNEL_BINDING_DISPLAY    1
 #define GK_KERNEL_BINDING_RANDOMIZE  2
 #define GK_KERNEL_BINDING_MUTATE     3
+#define GK_KERNEL_BINDING_CLONE      4
+#define GK_KERNEL_BINDING_FREE       5
+#define GK_KERNEL_BINDING_EVALUATE   6
 
 typedef DATATYPE(*function_ptr)(DATATYPE *); 
 

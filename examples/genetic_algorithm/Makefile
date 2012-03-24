@@ -1,5 +1,5 @@
 IDIR        := .
-BINFILE     := symreg 
+BINFILE     := genalg 
 CC          := gcc
 CFLAGS      := -Wall -lgenekit
 LIB         := ../../lib

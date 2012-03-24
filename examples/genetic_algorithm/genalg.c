@@ -20,7 +20,7 @@
 #include <genekit/chromosome.h>
 #include <genekit/function.h>
 #include <genekit/kernel.h>
-#include <genekit/kernels/sr.h>
+#include <genekit/kernels/ga.h>
 
 #include <stdio.h>
 #include <time.h>
@@ -54,7 +54,8 @@ float primitive(float *data) {
 }
 
 float fitness(gk_chromosome *c) {
-  return 1.0 / myfabs(3.1415927 - gk_chromosome_evaluate(c));
+  float x = gk_chromosome_evaluate(c);
+  return 1.0 / myfabs(x*x - 3.1415927);
 }
 
 int main(void) {
@@ -74,7 +75,7 @@ int main(void) {
   gk_function_pool_add_function(pool, &multiplication, 2, "*");
 
 
-  gk_kernel *my_kernel = gk_create_sr_kernel();
+  gk_kernel *my_kernel = gk_create_ga_kernel();
   gk_kernel_set_function_pool(my_kernel, pool);
   gk_kernel_start(my_kernel, simulation);
 

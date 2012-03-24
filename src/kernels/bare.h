@@ -1,5 +1,5 @@
 /*
- * kernels/default.h
+ * kernels/bare.h
  *
  * Copyright 2012 Matthew Paiz
  *
@@ -16,11 +16,11 @@
  * limitations under the License.
  */
 
-#ifndef __DEFAULT_H__
-#define __DEFAULT_H__
+#ifndef __BARE_H__
+#define __BARE_H__
 
 #include "../genekit.h"
 
-gk_kernel *gk_create_default_kernel();
+gk_kernel *gk_create_bare_kernel();
 
 #endif

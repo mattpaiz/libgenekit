@@ -1,5 +1,5 @@
 /*
- * tree.h
+ * dna/tree.h
  *
  * Copyright 2012 Matthew Paiz
  *
