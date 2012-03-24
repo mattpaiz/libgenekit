@@ -70,7 +70,7 @@ gk_population *gk_bare_process(gk_simulation *sim, gk_population *population) {
    gk_population_set_individual(new_population, i + 1, female);
  }
 
- for(i = gk_population_get_size(population) / 4; i < gk_population_get_size(population); i++) {
+ for(; i < gk_population_get_size(population); i++) {
    gk_population_set_individual(new_population, i, gk_chromosome_clone(gk_population_select(population)));
  }
 
