@@ -26,7 +26,6 @@
 #include "chromosome.h"
 #include "bare.h"
 #include "kernel.h"
-#include "mutate.h"
 #include "function.h"
 #include "equation.h"
 #include "dna/tree.h"

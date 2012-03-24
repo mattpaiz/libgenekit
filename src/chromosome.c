@@ -23,7 +23,6 @@
 #include "kernel.h"
 #include "function.h"
 #include "chromosome.h"
-#include "mutate.h"
 
 struct _gk_chromosome {
   void *dna;

@@ -26,7 +26,6 @@
 #include "chromosome.h"
 #include "bare.h"
 #include "kernel.h"
-#include "mutate.h"
 #include "function.h"
 #include "equation.h"
 #include "dna/tree.h"
@@ -36,7 +35,7 @@ void _gk_sr_crossover(gk_chromosome *a, gk_chromosome *b, int max_depth) {
   void *dna_a = gk_chromosome_get_dna(a);
   void *dna_b = gk_chromosome_get_dna(b);
 
-  gk_mutate_crossover(dna_a, dna_b, max_depth);
+  gk_tree_crossover(dna_a, dna_b, max_depth);
 }
 
 void _gk_sr_randomize(gk_chromosome *c, int depth) {

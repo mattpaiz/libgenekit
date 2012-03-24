@@ -19,7 +19,7 @@
 #ifndef __TREE_H__
 #define __TREE_H__
 
-#include "genekit.h"
+#include "../genekit.h"
 
 gk_tree *gk_tree_alloc(gk_function *function);
 int gk_tree_realloc(gk_tree *output, gk_function *function);
@@ -44,5 +44,6 @@ gk_tree *gk_tree_get_node(gk_tree *, int *);
 gk_tree *gk_tree_get_node_and_parent(gk_tree *root, int *index, gk_tree **parent);
 int gk_tree_get_size(gk_tree *node);
 void gk_tree_append_random(gk_tree *node, gk_function_pool *pool, int level, int maxlevel);
+void gk_tree_crossover(gk_tree **male, gk_tree **female, int level);
 
 #endif

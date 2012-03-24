@@ -21,7 +21,6 @@
 #include <stdlib.h>
 
 #include "equation.h"
-#include "mutate.h"
 
 #include "chromosome.h"
 #include "population.h"
