@@ -24,6 +24,10 @@
 #include "../dna/vector.h"
 #include "ga.h"
 
+void _gk_ga_mutate(gk_chromosome *input,int max_depth) {
+  gk_vector_mutate(*gk_chromosome_get_dna(input));
+}
+
 void _gk_ga_crossover(gk_chromosome *a, gk_chromosome *b, int max_depth) {
 
   void *dna_a = *gk_chromosome_get_dna(a);
@@ -67,6 +71,7 @@ gk_kernel *gk_create_ga_kernel() {
   ga_kernel->bindings[GK_KERNEL_BINDING_CLONE] = &_gk_ga_clone;
   ga_kernel->bindings[GK_KERNEL_BINDING_FREE] = &_gk_ga_free;
   ga_kernel->bindings[GK_KERNEL_BINDING_EVALUATE] = &_gk_ga_evaluate;
+  ga_kernel->bindings[GK_KERNEL_BINDING_MUTATE] = &_gk_ga_mutate;
 
   return ga_kernel;
 }

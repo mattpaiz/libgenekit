@@ -113,6 +113,10 @@ gk_function *gk_function_pool_get_branch(int index, gk_function_pool *pool) {
   return NULL;
 }
 
+void gk_function_pool_free(gk_function_pool *pool) {
+  free(pool);
+}
+
 gk_function *gk_function_pool_lookup(char *label, gk_function_pool *pool) {
 
   int c;

@@ -23,7 +23,7 @@
 
 #include <math.h>
 
-#define POPULATION_SIZE 1000
+#define POPULATION_SIZE 100
 
 float fitness(gk_chromosome *c) {
   float x = gk_chromosome_evaluate(c);

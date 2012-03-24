@@ -26,7 +26,7 @@
 #include <math.h>
 
 #define POPULATION_SIZE 100
-#define MAX_DEPTH 7 
+#define MAX_DEPTH 4 
 
 float addition(float *data) {
   return data[0] + data[1];
@@ -61,7 +61,6 @@ int main(void) {
   gk_simulation_set_fitness(simulation, &fitness);
 
   gk_function_pool *pool = gk_function_pool_alloc();
-
   gk_function_pool_add_function(pool, &addition, 2, "+");
   gk_function_pool_add_function(pool, &subtraction, 2, "-");
   gk_function_pool_add_function(pool, &primitive, 0, "#");
@@ -72,6 +71,7 @@ int main(void) {
   gk_kernel_set_function_pool(my_kernel, pool);
   gk_kernel_start(my_kernel, simulation);
 
+  gk_function_pool_free(pool);
   gk_simulation_free(simulation);
 
   return 0;

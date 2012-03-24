@@ -35,6 +35,7 @@ float gk_chromosome_get_fitness(gk_chromosome *);
 void gk_chromosome_set_equation(gk_chromosome *, char *);
 void gk_chromosome_set_fitness(gk_chromosome *c, float fitness);
 void gk_chromosome_set_dna(gk_chromosome *c, void *);
+void gk_chromosome_mutate(gk_chromosome *c, int max_depth);
 
 void **gk_chromosome_get_dna(gk_chromosome *chromosome);
 gk_function_pool *gk_chromosome_get_pool(gk_chromosome *chromosome);

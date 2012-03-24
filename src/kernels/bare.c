@@ -59,7 +59,13 @@ gk_population *gk_bare_process(gk_simulation *sim, gk_population *population) {
    male = gk_chromosome_clone(gk_population_select(population));
    female = gk_chromosome_clone(gk_population_select(population));
 
-   gk_chromosome_crossover(male, female, gk_simulation_get_max_depth(sim));
+   if(RAND(4))
+     gk_chromosome_crossover(male, female, gk_simulation_get_max_depth(sim));
+   else {
+     gk_chromosome_mutate(male, gk_simulation_get_max_depth(sim));
+     gk_chromosome_mutate(female, gk_simulation_get_max_depth(sim));
+   }
+
    gk_population_set_individual(new_population, i, male);
    gk_population_set_individual(new_population, i + 1, female);
  }

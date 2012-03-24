@@ -267,6 +267,22 @@ float gk_tree_evaluate(gk_tree *value) {
   return result;
 }
 
+void gk_tree_mutate(gk_tree *input, gk_function_pool *pool, int max_level) {
+
+  int size = gk_tree_get_size(input);
+
+  int index = RAND(size);
+
+  gk_tree *random = gk_tree_get_node(input, &index);
+
+  gk_function *f = gk_function_pool_get_random_function(pool); 
+  int level = gk_tree_get_level(input, random);
+
+  gk_tree_realloc(random, f);
+  gk_tree_append_random(random, pool, level, max_level);
+  random->primitive = RAND(10);
+}
+
 void gk_tree_crossover(gk_tree **male, gk_tree **female, int level) {
 
   int male_size = RAND(gk_tree_get_size(*male));  

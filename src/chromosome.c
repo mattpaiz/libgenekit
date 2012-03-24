@@ -32,6 +32,7 @@ struct _gk_chromosome {
   void *(*_clone)(void *dna);
   void (*_free)(void *dna);
   void (*_crossover)(gk_chromosome *, gk_chromosome *, int);
+  void (*_mutate)(gk_chromosome *, int);
   void (*_randomize)(gk_chromosome *, int);
   float (*_evaluate)(void *);
   char *(*_to_string)(gk_chromosome *);
@@ -57,6 +58,10 @@ void gk_chromosome_randomize(gk_chromosome *c, int depth) {
   c->_randomize(c, depth);
 }
 
+void gk_chromosome_mutate(gk_chromosome *c, int max_depth) {
+  c->_mutate(c, max_depth);
+}
+
 gk_chromosome *gk_chromosome_clone(gk_chromosome *c) {
   gk_chromosome *clone = (gk_chromosome *) malloc(sizeof(gk_chromosome));
   clone->fitness = c->fitness;
@@ -68,6 +73,7 @@ gk_chromosome *gk_chromosome_clone(gk_chromosome *c) {
   clone->_clone = c->_clone;
   clone->_free = c->_free;
   clone->_evaluate = c->_evaluate;
+  clone->_mutate = c->_mutate;
 
   return clone;
 }
@@ -107,6 +113,7 @@ gk_chromosome *gk_chromosome_alloc(gk_kernel *kernel) {
   c->_clone = gk_kernel_get_binding(kernel, GK_KERNEL_BINDING_CLONE);
   c->_free = gk_kernel_get_binding(kernel, GK_KERNEL_BINDING_FREE);
   c->_evaluate = gk_kernel_get_binding(kernel, GK_KERNEL_BINDING_EVALUATE);
+  c->_mutate = gk_kernel_get_binding(kernel, GK_KERNEL_BINDING_MUTATE);
   c->dna = NULL;
 
   return c;

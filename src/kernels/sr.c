@@ -30,6 +30,10 @@
 #include "equation.h"
 #include "dna/tree.h"
 
+void _gk_sr_mutate(gk_chromosome *input,int max_depth) {
+  gk_tree_mutate(*gk_chromosome_get_dna(input), gk_chromosome_get_pool(input), max_depth);
+}
+
 void _gk_sr_crossover(gk_chromosome *a, gk_chromosome *b, int max_depth) {
 
   void *dna_a = gk_chromosome_get_dna(a);
@@ -70,6 +74,7 @@ gk_kernel *gk_create_sr_kernel() {
   gk_kernel *sr_kernel = gk_create_bare_kernel();
 
   sr_kernel->bindings[GK_KERNEL_BINDING_CROSSOVER] = &_gk_sr_crossover;
+  sr_kernel->bindings[GK_KERNEL_BINDING_MUTATE] = &_gk_sr_mutate;
   sr_kernel->bindings[GK_KERNEL_BINDING_RANDOMIZE] = &_gk_sr_randomize;
   sr_kernel->bindings[GK_KERNEL_BINDING_DISPLAY] = &_gk_sr_to_string;
   sr_kernel->bindings[GK_KERNEL_BINDING_CLONE] = &_gk_sr_clone;

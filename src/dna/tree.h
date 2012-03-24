@@ -45,5 +45,6 @@ gk_tree *gk_tree_get_node_and_parent(gk_tree *root, int *index, gk_tree **parent
 int gk_tree_get_size(gk_tree *node);
 void gk_tree_append_random(gk_tree *node, gk_function_pool *pool, int level, int maxlevel);
 void gk_tree_crossover(gk_tree **male, gk_tree **female, int level);
+void gk_tree_mutate(gk_tree *input, gk_function_pool *pool, int max_level);
 
 #endif

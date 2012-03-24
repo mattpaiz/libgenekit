@@ -36,5 +36,6 @@ int gk_function_pool_count_branches(gk_function_pool *pool);
 
 char *gk_function_get_label(gk_function *f);
 function_ptr gk_function_invoke(gk_function *f);
+void gk_function_pool_free(gk_function_pool *pool);
 
 #endif
